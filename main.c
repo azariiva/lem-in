@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "libmap.h"
+#include "fcntl.h"
 
 void	show(t_room *room)
 {
@@ -33,9 +34,12 @@ int		main(void)
 {
 	t_map	*map;
 	t_list	*ptr;
+	int		fd;
 
-	if (!(map = mp_new(STDIN_FILENO)))
+	fd = open("test.txt", O_RDONLY);
+	if (!(map = mp_new(fd)))
 		return (-1);
+	close(fd);
 	ft_putstr("start: ");
 	show(map->start);
 	ft_putstr("end: ");
