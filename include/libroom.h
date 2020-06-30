@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/27 23:13:37 by blinnea           #+#    #+#             */
-/*   Updated: 2020/06/29 17:14:23 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/06/30 20:02:23 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ enum
 
 # include "libft.h"
 # include "libcoord.h"
+# include <limits.h>
 
 typedef enum	e_linktype
 {
@@ -41,6 +42,8 @@ typedef struct	s_room
 	char	*name;
 	t_coord	coord;
 	t_list	*links;
+	int		weight;
+	int		visited;
 }				t_room;
 
 /*
@@ -68,5 +71,7 @@ int			ro_connect(t_room *a, t_room *b, t_linktype linktype);
 ** Function ro_compare checks if a and b have same names or same coordinates.
 */
 int			ro_compare(t_room *a, t_room *b);
+
+void		ro_show(t_room *room);
 
 #endif

@@ -1,33 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ro_new.c                                           :+:      :+:    :+:   */
+/*   ro_show.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/28 16:03:20 by blinnea           #+#    #+#             */
-/*   Updated: 2020/06/30 00:37:05 by blinnea          ###   ########.fr       */
+/*   Created: 2020/06/30 20:01:11 by blinnea           #+#    #+#             */
+/*   Updated: 2020/06/30 20:03:36 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libroom.h"
+#include <stdio.h>
 
-t_room		*ro_new(char *name, t_coord coord)
+void	ro_show(t_room *room)
 {
-	t_room	*new;
+	t_list	*ptr;
 
-	if ((new = calloc(1, sizeof(t_room))) == NULL)
+	if (!room)
+		ft_putendl("(null)");
+	else
 	{
-		ft_putendl_fd("Error: ro_new allocation error", STDERR_FILENO);
-		return (NULL);
+		printf("name: %s\ncoord: %d %d\nweight: %d\nvisited: %d\n",
+		room->name, room->coord.x, room->coord.y, room->weight, room->visited);
+		ft_putendl("Links:");
+		ptr = room->links;
+		while (ptr)
+		{
+			ft_putendl((*(t_room **)ptr->content)->name);
+			ptr = ptr->next;
+		}
+		ft_putendl("\n");
 	}
-	if ((new->name = ft_strdup(name)) == NULL)
-	{
-		ft_putendl_fd("Error: ro_new allocation error", STDERR_FILENO);
-		ro_free(&new);
-		return (NULL);
-	}
-	ft_memcpy(&(new->coord), &coord, sizeof(t_coord));
-	new->weight = INT_MAX;
-	return (new);
 }

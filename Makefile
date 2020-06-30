@@ -6,7 +6,7 @@
 #    By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/28 15:47:12 by blinnea           #+#    #+#              #
-#    Updated: 2020/06/30 01:16:29 by blinnea          ###   ########.fr        #
+#    Updated: 2020/06/30 20:02:46 by blinnea          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,15 +54,16 @@ GNLFILES =	$(GNL) gnl_sup
 GNLCFILES =	$(patsubst %, $(GNL)/src/%.c, $(GNLFILES))
 GNLOFILES =	$(patsubst %, obj/$(GNL)/%.o, $(GNLFILES))
 
-LRMFILES =	ro_new ro_atoroom ro_free ro_compare ro_connect
+LRMFILES =	ro_new ro_atoroom ro_free ro_compare ro_connect ro_show
 LRMCFILES = $(patsubst %, src/$(LRM)/%.c, $(LRMFILES))
 LRMOFILES = $(patsubst %, obj/$(LRM)/%.o, $(LRMFILES))
 
 LCOFILES =	co_equal
-LCOCFILES = $(patsubst %, src/$(LCO)/%.c, $(LCOFILES))
-LCOOFILES = $(patsubst %, obj/$(LCO)/%.o, $(LCOFILES))
+LCOCFILES =	$(patsubst %, src/$(LCO)/%.c, $(LCOFILES))
+LCOOFILES =	$(patsubst %, obj/$(LCO)/%.o, $(LCOFILES))
 
-LMPFILES = mp_add mp_free mp_new mp_atolink mp_find
+LMPFILES =	mp_add mp_free mp_new mp_atolink mp_find mp_giveweight mp_show \
+			mp_thinout
 LMPCFILES = $(patsubst %, src/$(LMP)/%.c, $(LMPFILES))
 LMPOFILES = $(patsubst %, obj/$(LMP)/%.o, $(LMPFILES))
 

@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:45:27 by blinnea           #+#    #+#             */
-/*   Updated: 2020/06/29 17:20:28 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/06/30 18:49:29 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,11 @@ t_room	*mp_find(t_map *map, char *name);
 ** Function mp_atolink creates link between two rooms based on line.
 */
 int		mp_atolink(t_map *map, char *line);
+
+void	mp_giveweight(t_map *map);
+
+void	mp_show(t_map *map);
+
+void	mp_thinout(t_map *map);
 
 #endif

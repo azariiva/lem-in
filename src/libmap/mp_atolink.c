@@ -82,9 +82,9 @@ int					mp_atolink(t_map *map, char *line)
 		return (ERR);
 	}
 	free_link(slink);
-	if (link[0] == map->start)
+	if (link[0] == map->start || link[1] == map->end)
 		return (ro_connect(link[0], link[1], SINGLE_LINK));
-	if (link[1] == map->start)
+	if (link[1] == map->start || link[0] == map->end)
 		return (ro_connect(link[1], link[0], SINGLE_LINK));
 	if (link[0] == map->end)
 		return (ro_connect(link[1], link[0], SINGLE_LINK));
