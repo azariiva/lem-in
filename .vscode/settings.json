@@ -1,0 +1,14 @@
+{
+    "editor.rulers": [80],
+    "workbench.colorCustomizations": {
+        "editorRuler.foreground": "#ff4040"
+    },
+    "42header.username": "blinnea",
+    "42header.email": "blinnea@student.42.fr",
+    "editor.tabSize": 4,
+	"editor.insertSpaces": false,
+	"editor.detectIndentation": false,
+	"editor.renderWhitespace": "all",
+	"files.trimTrailingWhitespace": true,
+	"files.insertFinalNewline": true,
+}
