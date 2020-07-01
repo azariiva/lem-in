@@ -6,11 +6,12 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:57:51 by blinnea           #+#    #+#             */
-/*   Updated: 2020/06/30 21:25:14 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/01 22:48:00 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmap.h"
+#include <unistd.h>
 
 static int	read_rooms(int fd, t_map *map)
 {
@@ -81,7 +82,7 @@ t_map		*mp_new(int fd)
 {
 	t_map	*map;
 
-	if (!(map = calloc(1, sizeof(t_map))))
+	if (!(map = ft_memalloc(sizeof(t_map))))
 	{
 		ft_putendl_fd("Error: mp_new allocation error", STDERR_FILENO);
 		return (NULL);

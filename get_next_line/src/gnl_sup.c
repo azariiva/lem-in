@@ -6,11 +6,12 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/14 12:37:24 by blinnea           #+#    #+#             */
-/*   Updated: 2020/06/28 16:25:45 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/01 22:45:07 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <unistd.h>
 
 void	ft_strlstdel(t_list **alst)
 {
@@ -23,7 +24,7 @@ void	ft_strlstdel(t_list **alst)
 		todel = ptr;
 		ptr = ptr->next;
 		ft_memdel(&(todel->content));
-		free(todel);
+		ft_memdel((void **)&todel);
 	}
 	*alst = NULL;
 }
@@ -39,7 +40,7 @@ int		ft_fdlstdel(t_list **fdlst)
 		todel = ptr;
 		ptr = ptr->next;
 		ft_strlstdel((t_list **)&(todel->content));
-		free(todel);
+		ft_memdel((void **)&todel);
 	}
 	*fdlst = NULL;
 	return (0);

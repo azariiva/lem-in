@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:45:27 by blinnea           #+#    #+#             */
-/*   Updated: 2020/06/30 18:49:29 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/01 22:38:42 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 # define LIBMAP_H
 
+# include "libft_queue.h"
 # include "libroom.h"
 # include "get_next_line.h"
 

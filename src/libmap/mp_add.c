@@ -6,11 +6,12 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 15:22:48 by blinnea           #+#    #+#             */
-/*   Updated: 2020/06/30 00:41:34 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/01 22:47:09 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmap.h"
+#include <unistd.h>
 
 int		mp_add(t_map *map, t_room *room, t_rtype rtype)
 {

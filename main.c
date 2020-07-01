@@ -1,25 +1,8 @@
-#include <stdio.h>
 #include "libmap.h"
-#include "fcntl.h"
-
-// int				verify_rooms(t_list *rlist)
-// {
-// 	t_room	*room;
-// 	t_list	*ptr;
-
-// 	while (rlist->next)
-// 	{
-// 		room = *(t_room **)rlist->content;
-
-// 	}
-// 	room = *(t_room **)rlist->content;
-// 	rlist = rlist->next;
-// 	ptr = rlist->next;
-// 	while (ptr)
-// 	{
-// 		if ()
-// 	}
-// }
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
 
 int		main(void)
 {

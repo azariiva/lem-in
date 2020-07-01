@@ -6,12 +6,14 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 23:26:01 by blinnea           #+#    #+#             */
-/*   Updated: 2020/06/29 15:26:45 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/01 22:43:55 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include "gnl_sup.h"
+#include <sys/types.h>
+#include <unistd.h>
 
 static char	*list_to_str(t_list **list)
 {

@@ -6,56 +6,42 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 15:31:19 by blinnea           #+#    #+#             */
-/*   Updated: 2020/06/30 21:32:18 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/01 23:15:41 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmap.h"
+#include "libft_memory.h"
+#include <limits.h>
 
-static void	walk(t_room *room)
+static void	del(void *content, size_t size)
 {
-	t_list	*ptr;
-
-	room->visited = 1;
-	ptr = room->links;
-	while (ptr)
-	{
-		if ((*(t_room **)ptr->content)->weight > room->weight + 1)
-			(*(t_room **)ptr->content)->weight = room->weight + 1;
-		ptr = ptr->next;
-	}
-	ptr = room->links;
-	while (ptr)
-	{
-		if (!(*(t_room **)ptr->content)->visited)
-			walk(*(t_room **)ptr->content);
-		ptr = ptr->next;
-	}
-}
-
-static void	helper(t_room *room)
-{
-	t_list	*ptr;
-
-	ptr = room->links;
-	while (ptr)
-	{
-		if ((*(t_room **)ptr->content)->weight + 1 < room->weight)
-			room->weight = (*(t_room **)ptr->content)->weight + 1;
-		ptr = ptr->next;
-	}
+	if (size)
+		ft_memdel(&content);
 }
 
 void		mp_giveweight(t_map *map)
 {
-	t_list	*ptr;
+	t_queue	*queue;
+	t_list	*u;
+	t_list	*v;
 
 	map->start->weight = 0;
-	walk(map->start);
-	ptr = map->middle;
-	while (ptr)
+	queue = ft_quenew(&(map->start), sizeof(t_room *));
+	while (!ft_queisempty(queue))
 	{
-		helper(*(t_room *)ptr->content);
-		ptr = ptr->next;
+		u = ft_quepop(queue);
+		v = (*(t_room **)u->content)->links;
+		while (v)
+		{
+			if ((*(t_room **)v->content)->weight == INT_MAX && (*(t_room **)v->content) != map->end)
+			{
+				(*(t_room **)v->content)->weight = (*(t_room **)u->content)->weight + 1;
+				ft_queadd(queue, ft_lstnew((void *)(t_room **)v->content, sizeof(t_room *)));
+			}
+			v = v->next;
+		}
+		ft_lstdelone(&u, del);
 	}
+	ft_quedel(&queue, del);
 }

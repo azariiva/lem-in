@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/27 23:13:37 by blinnea           #+#    #+#             */
-/*   Updated: 2020/06/30 20:02:23 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/01 22:36:25 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ enum
 
 # endif
 
-# include "libft.h"
 # include "libcoord.h"
+# include "libft.h"
 # include <limits.h>
 
 typedef enum	e_linktype

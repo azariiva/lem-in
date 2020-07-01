@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "libmap.h"
+#include <unistd.h>
 
 static void			free_link(char **link)
 {
@@ -18,8 +19,8 @@ static void			free_link(char **link)
 
 	ptr = link;
 	while (*ptr)
-		free(*ptr++);
-	free(link);
+		ft_memdel((void **)ptr++);
+	ft_memdel((void **)&link);
 }
 
 static size_t		getlinksize(char **link)
@@ -47,10 +48,10 @@ static char			**mp_atoslink(char *line)
 	{
 		ft_putendl_fd("Error: mp_atoslink ft_strsplit returns null pointer",\
 		STDERR_FILENO);
-		free(trimmed);
+		ft_memdel((void **)&trimmed);
 		return (NULL);
 	}
-	free(trimmed);
+	ft_memdel((void **)&trimmed);
 	if (getlinksize(link) != 2)
 	{
 		ft_putendl_fd("Error: mp_atoslink multiple links in one line",\
@@ -86,9 +87,6 @@ int					mp_atolink(t_map *map, char *line)
 		return (ro_connect(link[0], link[1], SINGLE_LINK));
 	if (link[1] == map->start || link[0] == map->end)
 		return (ro_connect(link[1], link[0], SINGLE_LINK));
-	if (link[0] == map->end)
-		return (ro_connect(link[1], link[0], SINGLE_LINK));
-	if (link[1] == map->end)
-		return (ro_connect(link[0], link[1], SINGLE_LINK));
-	return (ro_connect(link[0], link[1], DOUBLE_LINK));
+	else
+		return (ro_connect(link[0], link[1], DOUBLE_LINK));
 }

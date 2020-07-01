@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "libroom.h"
+#include <unistd.h>
 
 static void		free_data(char ***data)
 {
@@ -18,9 +19,8 @@ static void		free_data(char ***data)
 
 	ptr = *data;
 	while (*ptr)
-		free(*ptr++);
-	free(*data);
-	*data = NULL;
+		ft_memdel((void **)ptr++);
+	ft_memdel((void **)data);
 }
 
 static int		isnum(char *str)

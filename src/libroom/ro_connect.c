@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "libroom.h"
+#include <unistd.h>
 
 static int	is_ro_connected(t_room *a, t_room *b)
 {
