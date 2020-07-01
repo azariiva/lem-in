@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:45:27 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/01 22:38:42 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/02 00:22:55 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 
 # include "libft_queue.h"
 # include "libroom.h"
-# include "get_next_line.h"
 
 typedef enum	e_rtype
 {

@@ -6,11 +6,12 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:57:51 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/01 22:48:00 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/02 00:23:14 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmap.h"
+#include "libft_get_next_line.h"
 #include <unistd.h>
 
 static int	read_rooms(int fd, t_map *map)

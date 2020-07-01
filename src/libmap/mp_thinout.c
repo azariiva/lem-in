@@ -6,11 +6,17 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 18:49:40 by blinnea           #+#    #+#             */
-/*   Updated: 2020/06/30 21:08:31 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/02 00:41:14 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmap.h"
+
+static void	del(void *content, size_t size)
+{
+	if (!size)
+		ft_memdel(&content);
+}
 
 static void	helper1(t_list **links)
 {
@@ -21,7 +27,7 @@ static void	helper1(t_list **links)
 	{
 		todel = *links;
 		*links = todel->next;
-		ft_lstdelone_ic(&todel);
+		ft_lstdelone(&todel, del);
 	}
 	if (!*links)
 		return ;
@@ -32,7 +38,7 @@ static void	helper1(t_list **links)
 		{
 			todel = ptr->next;
 			ptr->next = ptr->next->next;
-			ft_lstdelone_ic(&todel);
+			ft_lstdelone(&todel, del);
 		}
 		else
 			ptr = ptr->next;

@@ -6,7 +6,7 @@
 #    By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/28 15:47:12 by blinnea           #+#    #+#              #
-#    Updated: 2020/06/30 20:02:46 by blinnea          ###   ########.fr        #
+#    Updated: 2020/07/02 00:22:35 by blinnea          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,6 @@ CF =		-Wall -Wextra -Werror -ggdb
 # **************************************************************************** #
 #                               ABBREVIATIONS                                  #
 # **************************************************************************** #
-GNL =		get_next_line
 LFT =		libft
 LRM =		libroom
 LCO =		libcoord
@@ -38,8 +37,6 @@ LMP =		libmap
 # **************************************************************************** #
 #                                 HEADERS                                      #
 # **************************************************************************** #
-GNL_H =		$(GNL)/include/$(GNL).h
-SUP_H =		$(GNL)/include/gnl_sup.h
 LFT_H =		$(LFT)/include/$(LFT).h
 LRM_H =		include/$(LRM).h
 LCO_H =		include/$(LCO).h
@@ -50,9 +47,6 @@ ALL_H = $(LFT_H) $(GNL_H) $(LRM_H) $(LCO_H) $(LMP_H)
 # **************************************************************************** #
 #                                 FILENAMES                                    #
 # **************************************************************************** #
-GNLFILES =	$(GNL) gnl_sup
-GNLCFILES =	$(patsubst %, $(GNL)/src/%.c, $(GNLFILES))
-GNLOFILES =	$(patsubst %, obj/$(GNL)/%.o, $(GNLFILES))
 
 LRMFILES =	ro_new ro_atoroom ro_free ro_compare ro_connect ro_show
 LRMCFILES = $(patsubst %, src/$(LRM)/%.c, $(LRMFILES))
@@ -67,7 +61,7 @@ LMPFILES =	mp_add mp_free mp_new mp_atolink mp_find mp_giveweight mp_show \
 LMPCFILES = $(patsubst %, src/$(LMP)/%.c, $(LMPFILES))
 LMPOFILES = $(patsubst %, obj/$(LMP)/%.o, $(LMPFILES))
 
-ALL_O = $(GNLOFILES) $(LRMOFILES) $(LCOOFILES) $(LMPOFILES)
+ALL_O = $(LRMOFILES) $(LCOOFILES) $(LMPOFILES)
 
 .PHONY:	obj $(LFT) clean fclean re all
 
@@ -84,14 +78,8 @@ main: obj/main.o $(ALL_O)
 obj:
 	@mkdir -p obj
 	@mkdir -p obj/$(LRM)
-	@mkdir -p obj/$(GNL)
 	@mkdir -p obj/$(LCO)
 	@mkdir -p obj/$(LMP)
-
-# create $(GNLOFILES)
-obj/$(GNL)/%.o: $(GNL)/src/%.c $(LFT_H) $(GNL_H) $(SUP_H) $(LFT)/$(LFT).a
-	@$(CC) $(CF) -c $< -o $@ -I  $(LFT)/include -I $(GNL)/include
-	@echo "$(GREENB) $(DEFAULT)\c"
 
 # create $(LRMOFILES)
 obj/$(LRM)/%.o: src/$(LRM)/%.c $(LFT_H) $(LRM_H) $(LCO_H) $(LFT)/$(LFT).a
@@ -118,8 +106,8 @@ fclean: clean
 
 clean:
 	@make fclean -C $(LFT)
-	@rm -f $(LRMOFILES) $(GNLOFILES) $(LCOOFILES) $(LMPOFILES) obj/main.o
-	@rm -fd obj/$(LRM) obj/$(GNL) obj/$(LCO) obj/$(LMP) obj
+	@rm -f $(LRMOFILES) $(LCOOFILES) $(LMPOFILES) obj/main.o
+	@rm -fd obj/$(LRM) obj/$(LCO) obj/$(LMP) obj
 	@echo "> $(YELLOW)... clean$(DEFAULT)"
 
 re: fclean all
