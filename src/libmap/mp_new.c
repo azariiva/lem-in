@@ -62,7 +62,8 @@ static int	read_rooms(int fd, t_map *map)
 		}
 		ft_strdel(&line);
 	}
-	return (rcode);
+	ft_putendl_fd("Error: isn’t enough data to process", STDERR_FILENO);
+	return (ERR);
 }
 
 static int	read_links(int fd, t_map *map)
@@ -91,5 +92,10 @@ t_map		*mp_new(int fd)
 	if (read_rooms(fd, map) == ERR || read_links(fd, map) == ERR)
 		mp_free(&map);
 	get_next_line(-1, NULL);
+	if (map->start == map->end)
+	{
+		ft_putendl_fd("Start and end are match", STDERR_FILENO);
+		mp_free(&map);
+	}
 	return (map);
 }

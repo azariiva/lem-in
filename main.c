@@ -7,12 +7,9 @@
 int		main(void)
 {
 	t_map	*map;
-	int		fd;
 
-	fd = open("test.txt", O_RDONLY);
-	if (!(map = mp_new(fd)))
+	if (!(map = mp_new(STDIN_FILENO)))
 		return (-1);
-	close(fd);
 	mp_giveweight(map);
 	mp_thinout(map);
 	mp_show(map);
