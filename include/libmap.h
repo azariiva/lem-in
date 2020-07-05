@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:45:27 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/02 00:22:55 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/02 15:12:49 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,7 @@ void	mp_giveweight(t_map *map);
 void	mp_show(t_map *map);
 
 void	mp_thinout(t_map *map);
+
+int		mp_clear(t_map *map);
 
 #endif

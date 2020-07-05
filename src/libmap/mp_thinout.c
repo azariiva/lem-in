@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 18:49:40 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/02 00:41:14 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/02 15:19:17 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,89 +18,58 @@ static void	del(void *content, size_t size)
 		ft_memdel(&content);
 }
 
-// static void	helper1(t_list **links)
-// {
-// 	t_list	*ptr;
-// 	t_list	*todel;
-
-// 	while ((*links) && (*links)->content_size == 0)
-// 	{
-// 		todel = *links;
-// 		*links = todel->next;
-// 		ft_lstdelone(&todel, del);
-// 	}
-// 	if (!*links)
-// 		return ;
-// 	ptr = *links;
-// 	while (ptr->next)
-// 	{
-// 		if (ptr->next->content_size == 0)
-// 		{
-// 			todel = ptr->next;
-// 			ptr->next = ptr->next->next;
-// 			ft_lstdelone(&todel, del);
-// 		}
-// 		else
-// 			ptr = ptr->next;
-// 	}
-// }
-
-// static void	del(void *content, size_t size)
-// {
-// 	if (size && content)
-// 		ro_free((t_room **)content);
-// }
-
-static void	helper(t_list **middle)
+static void	helper(t_room *room)
 {
 	t_list	*ptr;
 	t_list	*todel;
-	int		flag;
 
-	flag = 1;
-	while (flag)
+	while (room->links && room->links->content_size == 0)
 	{
-		flag = 0;
-		while (!(*((t_room **)(*middle)->content))->links)
+		todel = room->links;
+		room->links = room->links->next;
+		ft_lstdelone(&todel, del);
+	}
+	if (!room->links)
+		return ;
+	ptr = room->links;
+	while (ptr->next)
+	{
+		if (ptr->next->content_size == 0)
 		{
-			todel = *middle;
-			*middle = (*middle)->next;
+			todel = ptr->next;
+			ptr->next = ptr->next->next;
 			ft_lstdelone(&todel, del);
-
 		}
-		ptr = *middle;
-		while (ptr->next)
-		{
-			if (!(*((t_room **)ptr->next->content))->links)
-			{
-				todel = ptr->next;
-				ptr->next = ptr->next->next;
-				ft_lstdelone(&todel, del);
-			}
-		}
+		else
+			ptr = ptr->next;
 	}
 }
 
 
 void		mp_thinout(t_map *map)
 {
-	t_queue	*queue;
-	t_list	*u;
-	t_list	*v;
+	t_list	*link;
+	t_list	*list_room;
+	t_room	*room;
 
-	queue = ft_quenew(&(map->start), sizeof(t_room *));
-	while (!ft_queisempty(queue))
+	list_room = map->middle;
+	while (list_room)
 	{
-		u = ft_quepop(queue);
-		v = (*(t_room **)u->content)->links;
-		while (v)
+		room = *(t_room **)list_room->content;
+		link = room->links;
+		while (link)
 		{
-			if ((*(t_room **)v->content)->weight <= (*(t_room **)u->content)->weight)
-				v->content_size = 0;
-			v = v->next;
+			if ((*(t_room **)link->content)->weight <= room->weight)
+				link->content_size = 0;
+			link = link->next;
 		}
-		ft_lstdelone(&u, del);
+		list_room = list_room->next;
 	}
-	ft_quedel(&queue, del);
-	helper(&(map->middle));
+	list_room = map->middle;
+	while (list_room)
+	{
+		helper(*(t_room **)list_room->content);
+		list_room = list_room->next;
+	}
+	mp_clear(map);
 }

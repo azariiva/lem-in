@@ -6,7 +6,7 @@
 #    By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/28 15:47:12 by blinnea           #+#    #+#              #
-#    Updated: 2020/07/02 00:22:35 by blinnea          ###   ########.fr        #
+#    Updated: 2020/07/02 15:13:13 by blinnea          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,7 +57,7 @@ LCOCFILES =	$(patsubst %, src/$(LCO)/%.c, $(LCOFILES))
 LCOOFILES =	$(patsubst %, obj/$(LCO)/%.o, $(LCOFILES))
 
 LMPFILES =	mp_add mp_free mp_new mp_atolink mp_find mp_giveweight mp_show \
-			mp_thinout
+			mp_thinout mp_clear
 LMPCFILES = $(patsubst %, src/$(LMP)/%.c, $(LMPFILES))
 LMPOFILES = $(patsubst %, obj/$(LMP)/%.o, $(LMPFILES))
 
