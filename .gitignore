@@ -1,2 +1,7 @@
 .vscode
 test.txt
+./obj/*/*.o
+./obj/*.o
+./libft/obj/*/*.o
+./libft/obj/*.o
+./libft/libft.a
