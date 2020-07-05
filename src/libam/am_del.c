@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ro_free.c                                          :+:      :+:    :+:   */
+/*   am_del.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/28 16:03:22 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/01 22:46:56 by blinnea          ###   ########.fr       */
+/*   Created: 2020/07/05 17:47:25 by blinnea           #+#    #+#             */
+/*   Updated: 2020/07/05 17:57:33 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libroom.h"
+#include "libam.h"
 
-static void	del(void *content, size_t size)
+void	am_del(t_am **am)
 {
-	if (size)
-		ft_memdel(&content);
-}
+	size_t	i;
 
-void		ro_free(t_room **room)
-{
-	if (room == NULL || *room == NULL)
-		return ;
-	if ((*room)->name != NULL)
-		ft_strdel(&((*room)->name));
-	ft_lstdel(&((*room)->links), del);
-	ft_memdel((void **)room);
+	i = -1;
+	while (++i < (*am)->size)
+	{
+		ro_del((*am)->rooms + i);
+		ft_memdel((*am)->edges + i);
+		ft_memdel((*am)->resedges + i);
+	}
+	ft_memdel(&((*am)->rooms));
+	ft_memdel(&((*am)->edges));
+	ft_memdel(&((*am)->resedges));
+	ft_memdel(am);
 }

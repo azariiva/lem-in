@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/27 23:13:37 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/02 14:57:38 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/05 17:53:58 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,19 @@ enum
 
 # endif
 
+# ifndef E_RTYPE
+
+#  define E_RTYPE
+
+typedef enum	e_rtype
+{
+	MIDDLE_ROOM = 0,
+	START_ROOM = 1,
+	END_ROOM = 2
+}				t_rtype;
+
+# endif
+
 # include "libcoord.h"
 # include "libft.h"
 # include <limits.h>
@@ -41,25 +54,27 @@ typedef struct	s_room
 {
 	char	*name;
 	t_coord	coord;
-	t_list	*links;
 	int		weight;
 }				t_room;
 
 /*
 ** Function ro_new allocates memory and returns pointer to new room.
+** Rewritten to work with libam. ✔
 */
-t_room		*ro_new(char *name, t_coord coord);
+t_room		*ro_new(char *name, t_coord coord, int rtype);
 
 /*
 ** Function ro_atoroom use line and type to create new room using ro_new
 ** function.
+** Rewritten to work with libam. ✔
 */
 t_room		*ro_atoroom(char *line);
 
 /*
-** Function ro_free removes room and all its links.
+** Function ro_del removes room and all its links.
+** Rewritten to work with libam. ✔
 */
-void		ro_free(t_room **room);
+void		ro_del(t_room **room);
 
 /*
 ** Function ro_connect adds links with each other to rooms a and b.

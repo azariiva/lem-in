@@ -46,18 +46,32 @@ static size_t	getdatasize(char **data)
 
 t_room			*ro_atoroom(char *line)
 {
-	char	**data;
-	t_room	*room;
+	char		**data;
+	t_room		*room;
+	static int	rtype;
 
+	if (line[0] == '#' || line[0] == 'L')
+	{
+		if (line[1] == '#')
+		{
+			line = ft_strtrim(line);
+			if (!ft_strcmp(line + 2, "start"))
+				rtype = START_ROOM;
+			else if (!ft_strcmp(line + 2, "end"))
+				rtype = END_ROOM;
+			ft_strdel(&line);
+		}
+		return (NULL);
+	}
 	if (!line || !(data = ft_strsplit_plus(line, ft_isspace)))
 		return (NULL);
 	if (getdatasize(data) != 3 || !(isnum(data[1]) && isnum(data[2])))
 	{
-		ft_putendl_fd("Error: ro_atoroom wrong line", STDERR_FILENO);
 		free_data(&data);
 		return (NULL);
 	}
-	room = ro_new(data[0], (t_coord){ft_atoi(data[1]), ft_atoi(data[2])});
+	room = ro_new(data[0], (t_coord){ft_atoi(data[1]), ft_atoi(data[2])}, rtype);
 	free_data(&data);
+	rtype = MIDDLE_ROOM;
 	return (room);
 }

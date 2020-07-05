@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:45:27 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/02 15:12:49 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/05 17:29:56 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,13 @@
 
 # define LIBMAP_H
 
+# include "libam.h"
 # include "libft_queue.h"
 # include "libroom.h"
+
+# ifndef E_RTYPE
+
+#  define E_RTYPE
 
 typedef enum	e_rtype
 {
@@ -23,6 +28,8 @@ typedef enum	e_rtype
 	START_ROOM = 1,
 	END_ROOM = 2
 }				t_rtype;
+
+# endif
 
 typedef struct	s_map
 {
@@ -64,8 +71,6 @@ void	mp_giveweight(t_map *map);
 
 void	mp_show(t_map *map);
 
-void	mp_thinout(t_map *map);
-
-int		mp_clear(t_map *map);
+t_am	*mp_toam(t_map *map);
 
 #endif

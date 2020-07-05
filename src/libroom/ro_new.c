@@ -6,14 +6,14 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/28 16:03:20 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/01 22:35:20 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/05 17:34:22 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libroom.h"
 #include <unistd.h>
 
-t_room		*ro_new(char *name, t_coord coord)
+t_room		*ro_new(char *name, t_coord coord, int rtype)
 {
 	t_room	*new;
 
@@ -29,6 +29,6 @@ t_room		*ro_new(char *name, t_coord coord)
 		return (NULL);
 	}
 	ft_memcpy(&(new->coord), &coord, sizeof(t_coord));
-	new->weight = INT_MAX;
+	new->weight = rtype;
 	return (new);
 }
