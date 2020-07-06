@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/28 16:03:20 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/06 15:10:58 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/06 18:22:28 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ t_room		*ro_new(char *name, t_coord coord, int rtype)
 		return (NULL);
 	}
 	ft_memcpy(&(new->coord), &coord, sizeof(t_coord));
-	new->weight = rtype;
+	new->visited = rtype;
 	return (new);
 }

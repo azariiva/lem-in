@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 17:14:53 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/06 16:30:46 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/06 18:22:16 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,9 @@ t_am		*am_new(int fd)
 	{
 		if ((room = ro_atoroom(line)))
 		{
-			if (room->weight == START_ROOM)
+			if (room->visited == START_ROOM)
 				ser[0] = room;
-			else if (room->weight == END_ROOM)
+			else if (room->visited == END_ROOM)
 				ser[1] = room;
 			else
 				ft_lstadd(&rooms, ft_lstnew(&room, sizeof(t_room *)));
