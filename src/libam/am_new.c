@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 17:14:53 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/06 18:22:16 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/06 21:14:54 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,14 @@ static int	am_addrooms(t_am *am, t_list *rooms, t_room *start, t_room *end)
 	am->size = ft_lstsize(rooms) + 2;
 	am->rooms = ft_memalloc(am->size * sizeof(t_room *));
 	am->edges = ft_memalloc(am->size * sizeof(int *));
-	am->resedges = ft_memalloc(am->size * sizeof(int *));
+	am->flow = ft_memalloc(am->size * sizeof(int *));
+	am->addgraph = ft_memalloc(am->size * sizeof(int *));
 	i = -1;
 	while (++i < am->size)
 	{
 		am->edges[i] = ft_memalloc(am->size * sizeof(int));
-		am->resedges[i] = ft_memalloc(am->size * sizeof(int));
+		am->flow[i] = ft_memalloc(am->size * sizeof(int));
+		am->addgraph[i] = ft_memalloc(am->size * sizeof(int));
 	}
 	am->rooms[0] = start;
 	am->rooms[am->size - 1] = end;
@@ -54,6 +56,7 @@ t_am		*am_new(int fd)
 
 	ser[0] = NULL;
 	ser[1] = NULL;
+	rooms = NULL;
 	if (!(am = ft_memalloc(sizeof(t_am))))
 		return (NULL);
 	get_next_line(fd, &line);
@@ -66,12 +69,12 @@ t_am		*am_new(int fd)
 	{
 		if ((room = ro_atoroom(line)))
 		{
-			if (room->visited == START_ROOM)
+			if (room->weight == START_ROOM)
 				ser[0] = room;
-			else if (room->visited == END_ROOM)
+			else if (room->weight == END_ROOM)
 				ser[1] = room;
 			else
-				ft_lstadd(&rooms, ft_lstnew(&room, sizeof(t_room *)));
+				ft_lstadd(&rooms, ft_lstnew(&room, sizeof(t_room **)));
 		}
 		ft_strdel(&line);
 	}
@@ -94,7 +97,7 @@ t_am		*am_new(int fd)
 			return (NULL);
 		}
 		ft_strdel(&line);
-		if (get_next_line(STDIN_FILENO, &line) != OK)
+		if (get_next_line(fd, &line) != OK)
 			break;
 	}
 	get_next_line(-1, NULL);

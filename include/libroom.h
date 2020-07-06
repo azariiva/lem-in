@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/27 23:13:37 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/06 14:14:41 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/06 21:14:02 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct	s_room
 {
 	char	*name;
 	t_coord	coord;
+	int		visited;
 	int		weight;
 }				t_room;
 

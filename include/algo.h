@@ -1,30 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   am_del.c                                           :+:      :+:    :+:   */
+/*   algo.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/05 17:47:25 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/06 18:47:37 by blinnea          ###   ########.fr       */
+/*   Created: 2020/07/06 18:52:07 by blinnea           #+#    #+#             */
+/*   Updated: 2020/07/06 20:33:18 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libam.h"
+#ifndef ALGO_H
 
-void	am_del(t_am **am)
-{
-	size_t	i;
+# define ALGO_H
 
-	i = -1;
-	while (++i < (*am)->size)
-	{
-		ro_del((*am)->rooms + i);
-		ft_memdel((void **)((*am)->edges + i));
-		ft_memdel((void **)((*am)->flow + i));
-	}
-	ft_memdel((void **)&((*am)->rooms));
-	ft_memdel((void **)&((*am)->edges));
-	ft_memdel((void **)&((*am)->flow));
-	ft_memdel((void **)am);
-}
+# include "libam.h"
+
+int	find_shortest(t_am *am);
+
+#endif

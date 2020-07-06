@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   am_del.c                                           :+:      :+:    :+:   */
+/*   am_removeflow.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/05 17:47:25 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/06 18:47:37 by blinnea          ###   ########.fr       */
+/*   Created: 2020/07/06 21:38:23 by blinnea           #+#    #+#             */
+/*   Updated: 2020/07/06 21:40:36 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libam.h"
 
-void	am_del(t_am **am)
+void	am_removeflow(t_am *am, size_t v)
 {
 	size_t	i;
 
 	i = -1;
-	while (++i < (*am)->size)
+	while (++i < am->size)
 	{
-		ro_del((*am)->rooms + i);
-		ft_memdel((void **)((*am)->edges + i));
-		ft_memdel((void **)((*am)->flow + i));
+		if (am->flow[v][i])
+		{
+			am->flow[v][i] = 0;
+			am_removeflow(am, i);
+		}
 	}
-	ft_memdel((void **)&((*am)->rooms));
-	ft_memdel((void **)&((*am)->edges));
-	ft_memdel((void **)&((*am)->flow));
-	ft_memdel((void **)am);
 }
