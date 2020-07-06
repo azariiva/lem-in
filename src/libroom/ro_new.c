@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/28 16:03:20 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/05 17:34:22 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/06 15:10:58 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_room		*ro_new(char *name, t_coord coord, int rtype)
 	if ((new->name = ft_strdup(name)) == NULL)
 	{
 		ft_putendl_fd("Error: ro_new allocation error", STDERR_FILENO);
-		ro_free(&new);
+		ro_del(&new);
 		return (NULL);
 	}
 	ft_memcpy(&(new->coord), &coord, sizeof(t_coord));

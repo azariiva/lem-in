@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mp_show.c                                          :+:      :+:    :+:   */
+/*   am_str_to_idx.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/30 15:48:33 by blinnea           #+#    #+#             */
-/*   Updated: 2020/06/30 20:02:05 by blinnea          ###   ########.fr       */
+/*   Created: 2020/07/06 14:19:27 by blinnea           #+#    #+#             */
+/*   Updated: 2020/07/06 14:23:59 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libmap.h"
+#include "libam.h"
 
-void		mp_show(t_map *map)
+size_t	am_str_to_idx(char *str, t_am *am)
 {
-	t_list	*ptr;
+	size_t	idx;
 
-	ft_putendl("##start");
-	ro_show(map->start);
-	ptr = map->middle;
-	while (ptr)
+	idx = -1;
+	while (++idx < am->size)
 	{
-		ro_show(*(t_room **)ptr->content);
-		ptr = ptr->next;
+		if (!ft_strcmp(str, am->rooms[idx]->name))
+			return (idx);
 	}
-	ft_putendl("##end");
-	ro_show(map->end);
+	return (-1);
 }

@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/27 23:13:37 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/05 17:53:58 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/06 14:14:41 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,25 +30,18 @@ enum
 # ifndef E_RTYPE
 
 #  define E_RTYPE
-
+#  include <limits.h>
 typedef enum	e_rtype
 {
 	MIDDLE_ROOM = 0,
-	START_ROOM = 1,
-	END_ROOM = 2
+	START_ROOM = INT_MIN,
+	END_ROOM = INT_MAX
 }				t_rtype;
 
 # endif
 
 # include "libcoord.h"
 # include "libft.h"
-# include <limits.h>
-
-typedef enum	e_linktype
-{
-	SINGLE_LINK = 1,
-	DOUBLE_LINK = 2
-}				t_linktype;
 
 typedef struct	s_room
 {
@@ -71,15 +64,10 @@ t_room		*ro_new(char *name, t_coord coord, int rtype);
 t_room		*ro_atoroom(char *line);
 
 /*
-** Function ro_del removes room and all its links.
+** Function ro_del removes room and its name.
 ** Rewritten to work with libam. ✔
 */
 void		ro_del(t_room **room);
-
-/*
-** Function ro_connect adds links with each other to rooms a and b.
-*/
-int			ro_connect(t_room *a, t_room *b, t_linktype linktype);
 
 /*
 ** Function ro_compare checks if a and b have same names or same coordinates.

@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 17:14:53 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/05 19:15:22 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/06 16:30:46 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_am		*am_new(int fd)
 	get_next_line(fd, &line);
 	if (!(am->ants = ft_atoi(line)))
 	{
-		ft_putendl_fd("Error: wrong number of ants", STDERR_FILENO);
+		ft_printf_fd(STDERR_FILENO, "{red}Error:{eoc} no ants.");
 		return (NULL);
 	}
 	while (get_next_line(fd, &line) == OK && !ft_strchr(line, '-'))
@@ -68,7 +68,7 @@ t_am		*am_new(int fd)
 		{
 			if (room->weight == START_ROOM)
 				ser[0] = room;
-			else if (room->weight = END_ROOM)
+			else if (room->weight == END_ROOM)
 				ser[1] = room;
 			else
 				ft_lstadd(&rooms, ft_lstnew(&room, sizeof(t_room *)));
@@ -77,9 +77,26 @@ t_am		*am_new(int fd)
 	}
 	if (!ft_strchr(line, '-'))
 	{
+		ft_printf_fd(STDERR_FILENO, "{red}Error:{eoc} no links between rooms.");
 		am_del(&am);
+		get_next_line(-1, NULL);
 		return (NULL);
 	}
 	am_addrooms(am, rooms, ser[0], ser[1]);
-	while (get_next_line(fd, &line) == OK)
+
+	while (OK)
+	{
+		if (am_addlink(line, am) == ERR)
+		{
+			ft_strdel(&line);
+			am_del(&am);
+			get_next_line(-1, NULL);
+			return (NULL);
+		}
+		ft_strdel(&line);
+		if (get_next_line(STDIN_FILENO, &line) != OK)
+			break;
+	}
+	get_next_line(-1, NULL);
+	return (am);
 }

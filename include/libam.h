@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 16:06:34 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/05 17:48:29 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/06 14:54:15 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,8 @@ typedef struct	s_am
 
 t_am	*am_new(int fd);
 void	am_del(t_am **am);
+size_t	am_str_to_idx(char *str, t_am *am);
+int		am_addlink(char *line, t_am *am);
+void	am_show(t_am *am);
 
 #endif
