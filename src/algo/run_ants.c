@@ -6,12 +6,13 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 04:07:24 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/08 16:58:11 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/08 18:20:17 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "algo.h"
 #include "libway.h"
+#include <unistd.h>
 
 static void			spread_ants(t_ant *ants, size_t q, t_way *ways)
 {
@@ -35,7 +36,7 @@ static void			spread_ants(t_ant *ants, size_t q, t_way *ways)
 	}
 }
 
-void		 	run_ants(t_am *am)
+int		 	run_ants(t_am *am)
 {
 	t_ant		*ants;
 	t_way		*ways;
@@ -43,9 +44,15 @@ void		 	run_ants(t_am *am)
 	int			i;
 
 	if (!(ants = ft_memalloc(am->ants * sizeof(t_ant))))
-		return;
+	{
+		ft_printf_fd(STDERR_FILENO, "{red}Error:{eoc} allocation error.\n");
+		return (ERR);
+	}
 	if (!(ways = way_find_all(am)))
-		return ;
+	{
+		ft_memdel((void **)ants);
+		return (ERR);
+	}
 	spread_ants(ants, am->ants, ways);
 	am_clear_visited(am);
 	flag = 1;
@@ -56,7 +63,7 @@ void		 	run_ants(t_am *am)
 		while (++i < am->ants)
 		{
 			if (ants[i].cur_node != ants[i].way->len - 1 &&
-			!am->rooms[ants[i].way->nodes[ants[i].cur_node + 1]]->visited)
+				!am->rooms[ants[i].way->nodes[ants[i].cur_node + 1]]->visited)
 			{
 				am->rooms[ants[i].way->nodes[ants[i].cur_node]]->visited = 0;
 				ants[i].cur_node++;
@@ -71,4 +78,7 @@ void		 	run_ants(t_am *am)
 		if (flag)
 			ft_printf("\n");
 	}
+	ft_memdel((void **)&ants);
+	way_del(&ways);
+	return (OK);
 }

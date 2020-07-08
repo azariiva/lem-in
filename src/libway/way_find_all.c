@@ -6,11 +6,12 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 04:31:04 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/08 05:16:05 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/08 18:20:13 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libway.h"
+#include <unistd.h>
 
 static size_t	find_waylen(size_t v, t_am *am)
 {
@@ -41,7 +42,10 @@ static int		add_way(size_t v, t_way *way, t_am *am)
 
 	way->len = find_waylen(v, am) + 2;
 	if (!(way->nodes = ft_memalloc(way->len * sizeof(size_t))))
+	{
+		ft_printf_fd(STDERR_FILENO, "{red}Error:{eoc} allocation error.\n");
 		return (ERR);
+	}
 	way->nodes[0] = 0;
 	if (way->len > 2)
 		way->nodes[1] = v;
@@ -72,13 +76,19 @@ t_way			*way_find_all(t_am *am)
 
 	wc = way_count(am);
 	if (!(ways = ft_memalloc((wc + 1) * sizeof(t_way))))
+	{
+		ft_printf_fd(STDERR_FILENO, "{red}Error:{eoc} allocation error.\n");
 		return (NULL);
+	}
 	i = -1;
 	j = 0;
 	while (++i < am->size)
 	{
-		if (am->flow[0][i] == 1)
-			add_way(i, ways + j++, am);
+		if (am->flow[0][i] == 1 && add_way(i, ways + j++, am) == ERR)
+		{
+			way_del(&ways);
+			break;
+		}
 	}
 	return (ways);
 }

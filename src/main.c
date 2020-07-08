@@ -8,27 +8,22 @@
 int		main(void)
 {
 	t_am	*am;
-	int		fd;
-	// t_way	*ways;
-	// t_way	*ptr;
 
-	fd = open("test.txt", O_RDONLY);
-	if (!(am = am_new(fd)))
+	if (!(am = am_new(STDIN_FILENO)))
 		return (-1);
-	close(fd);
 	if (find_shortest(am) != OK)
-		ft_printf_fd(STDERR_FILENO, "{red}Error:{eoc} path doesn't exist.");
+	{
+		ft_printf_fd(STDERR_FILENO, "{red}Error:{eoc} no paths exist.\n");
+		am_del(&am);
+		return (-1);
+	}
 	while (find_shortest(am) == OK)
 		;
-	run_ants(am);
-	// am_show(am);
-	// ways = way_find_all(am);
-	// ptr = ways;
-	// while (ptr->len)
-	// {
-	// 	way_show(ptr, am->rooms);
-	// 	++ptr;
-	// }
+	if (run_ants(am) == ERR)
+	{
+		am_del(&am);
+		return (-1);
+	}
 	am_del(&am);
 	return (0);
 }

@@ -50,7 +50,12 @@ t_room			*ro_atoroom(char *line)
 	t_room		*room;
 	static int	rtype;
 
-	if (line[0] == '#' || line[0] == 'L')
+	if (line[0] == 'L')
+	{
+		ft_printf_fd(STDERR_FILENO, "{red}Error:{eoc} line starts with \'L\'\n");
+		return ((t_room *)ERR);
+	}
+	else if (line[0] == '#')
 	{
 		if (line[1] == '#')
 		{
@@ -61,17 +66,21 @@ t_room			*ro_atoroom(char *line)
 				rtype = END_ROOM;
 			ft_strdel(&line);
 		}
-		return (NULL);
+		return ((t_room *)OK);
 	}
-	if (!line || !(data = ft_strsplit_plus(line, ft_isspace)))
-		return (NULL);
+	if (!(data = ft_strsplit_plus(line, ft_isspace)))
+	{
+		ft_printf_fd(STDERR_FILENO, "{red}Error:{eoc} allocation error.\n");
+		return ((t_room *)ERR);
+	}
 	if (getdatasize(data) != 3 || !(isnum(data[1]) && isnum(data[2])))
 	{
+		ft_printf_fd(STDERR_FILENO, "{red}Error:{eoc} wrong room description.\n");
 		free_data(&data);
-		return (NULL);
+		return ((t_room *)ERR);
 	}
 	room = ro_new(data[0], (t_coord){ft_atoi(data[1]), ft_atoi(data[2])}, rtype);
 	free_data(&data);
 	rtype = MIDDLE_ROOM;
-	return (room);
+	return (room ? room : (t_room *)ERR);
 }

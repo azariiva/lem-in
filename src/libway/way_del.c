@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   algo.h                                             :+:      :+:    :+:   */
+/*   way_del.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/06 18:52:07 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/08 18:05:12 by blinnea          ###   ########.fr       */
+/*   Created: 2020/07/08 17:53:04 by blinnea           #+#    #+#             */
+/*   Updated: 2020/07/08 17:58:45 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ALGO_H
+#include "libway.h"
 
-# define ALGO_H
+void	way_del(t_way **way)
+{
+	t_way	*ptr;
 
-# include "libam.h"
-
-int	find_shortest(t_am *am);
-int	run_ants(t_am *am);
-
-#endif
+	ptr = *way;
+	while (ptr->len)
+	{
+		ft_memdel((void **)&(ptr->nodes));
+		++ptr;
+	}
+	ft_memdel((void **)way);
+}
