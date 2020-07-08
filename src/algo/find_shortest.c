@@ -6,11 +6,12 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 18:32:15 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/06 21:57:14 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/08 16:54:35 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "algo.h"
+#include <unistd.h>
 
 static void	del(void *content, size_t size)
 {
@@ -28,12 +29,13 @@ int		find_shortest(t_am *am)
 
 	am_clear_addgraph(am);
 	am_clear_visited(am);
+	am->rooms[0]->visited = 1;
 	queue = ft_quenew(NULL, 0);
+	// ft_printf("____find_shortest____\n");
 	while (!ft_queisempty(queue) && !am->rooms[am->size - 1]->visited)
 	{
 		flag = 1;
 		v = ft_quepop(queue);
-		am->rooms[v->content_size]->visited = 1;
 		idx = -1;
 		while (++idx < am->size)
 		{
@@ -41,11 +43,20 @@ int		find_shortest(t_am *am)
 				am->flow[v->content_size][idx] == -1 &&
 				!am->rooms[idx]->visited)
 			{
-				// if (am->rooms[v->content_size]->weight - 1 < am->rooms[idx]->weight)
-				// 	am_removeflow(am, idx);
+				// ft_printf("%zu(%d)-(-1)->%zu(%d)\n", v->content_size, am->rooms[v->content_size]->weight, idx, am->rooms[idx]->weight);
+				if (am->rooms[v->content_size]->weight - 1 < am->rooms[idx]->weight)
+				{
+					// ft_printf("before:\n");
+					// am_show_flow(am);
+					am_removeflow(am, idx);
+					// ft_printf("after:\n");
+					// am_show_flow(am);
+					// ft_printf("\n");
+				}
+				am->rooms[idx]->weight = am->rooms[v->content_size]->weight - 1;
+				am->rooms[idx]->visited = 1;
 				am->addgraph[v->content_size][idx] = 1;
 				am->addgraph[idx][v->content_size] = -1;
-				am->rooms[idx]->weight = am->rooms[v->content_size]->weight - 1;
 				flag = 0;
 				ft_queadd(queue, ft_lstnew_ic(idx));
 			}
@@ -55,18 +66,24 @@ int		find_shortest(t_am *am)
 			idx = -1;
 			while (++idx < am->size)
 			{
-				if (am->edges[v->content_size][idx] && am->flow[v->content_size][idx] != 1 && !am->rooms[idx]->visited)
+				if (am->edges[v->content_size][idx] &&
+					!am->flow[v->content_size][idx] &&
+					!am->rooms[idx]->visited)
 				{
-					// if (am->rooms[v->content_size]->weight + 1 < am->rooms[idx]->weight)
-					// 	am_removeflow(am, idx);
+					// ft_printf("%zu(%d)-(+1)->%zu(%d)\n", v->content_size, am->rooms[v->content_size]->weight, idx, am->rooms[idx]->weight);
+					if (am->rooms[v->content_size]->weight + 1 < am->rooms[idx]->weight)
+					{
+						// ft_printf("before:\n");
+						// am_show_flow(am);
+						am_removeflow(am, idx);
+						// ft_printf("after:\n");
+						// am_show_flow(am);
+						// ft_printf("\n");
+					}
+					am->rooms[idx]->weight = am->rooms[v->content_size]->weight + 1;
+					am->rooms[idx]->visited = 1;
 					am->addgraph[v->content_size][idx] = 1;
 					am->addgraph[idx][v->content_size] = -1;
-					am->rooms[idx]->weight = am->rooms[v->content_size]->weight + 1;
-					if (idx == am->size - 1)
-					{
-						am->rooms[am->size - 1]->visited = 1;
-						break;
-					}
 					ft_queadd(queue, ft_lstnew_ic(idx));
 				}
 			}
@@ -91,5 +108,9 @@ int		find_shortest(t_am *am)
 			}
 		}
 	}
+	// ft_printf("flow:\n");
+	// am_show_flow(am);
+	// ft_printf("------------------------------------------------------------\n");
+
 	return (OK);
 }

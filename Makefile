@@ -6,7 +6,7 @@
 #    By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/28 15:47:12 by blinnea           #+#    #+#              #
-#    Updated: 2020/07/06 19:55:37 by blinnea          ###   ########.fr        #
+#    Updated: 2020/07/08 05:03:12 by blinnea          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,8 +39,9 @@ LRM_H =		include/libroom.h
 LCO_H =		include/libcoord.h
 LAM_H =		include/libam.h
 ALG_H =		include/algo.h
+WAY_H =		include/libway.h
 
-ALL_H = $(LFT_H) $(LRM_H) $(LCO_H) $(LAM_H) $(ALG_H)
+ALL_H = $(LFT_H) $(LRM_H) $(LCO_H) $(LAM_H) $(ALG_H) $(WAY_H)
 
 # **************************************************************************** #
 #                                 FILENAMES                                    #
@@ -49,13 +50,15 @@ LRMFILES =	$(shell find src/libroom -name '*.c')
 LCOFILES =	$(shell find src/libcoord -name '*.c')
 LAMFILES =	$(shell find src/libam -name '*.c')
 ALGFILES =	$(shell find src/algo -name '*.c')
+WAYFILES =	$(shell find src/libway -name '*.c')
 
 LRMOFILES =	$(addprefix obj/, $(LRMFILES:src/libroom/%.c=%.o))
 LCOOFILES =	$(addprefix obj/, $(LCOFILES:src/libcoord/%.c=%.o))
 LAMOFILES =	$(addprefix obj/, $(LAMFILES:src/libam/%.c=%.o))
 ALGOFILES =	$(addprefix obj/, $(ALGFILES:src/algo/%.c=%.o))
+WAYOFILES =	$(addprefix obj/, $(WAYFILES:src/libway/%.c=%.o))
 
-ALL_O = $(LRMOFILES) $(LCOOFILES) $(LAMOFILES) $(ALGOFILES) obj/main.o
+ALL_O = $(LRMOFILES) $(LCOOFILES) $(LAMOFILES) $(ALGOFILES) $(WAYOFILES) obj/main.o
 
 .PHONY: $(LFT) clean fclean re all
 
@@ -82,13 +85,18 @@ obj/%.o: src/libcoord/%.c $(LCO_H)
 	@$(CC) $(CF) -c $< -o $@ -I include
 	@echo "$(GREENB) $(DEFAULT)\c"
 
-# create $(LAMOFILES)
+# create libam object files
 obj/%.o: src/libam/%.c $(LRM_H) $(LFT_H)
 	@$(CC) $(CF) -c $< -o $@ -I include -I $(LFT)/include
 	@echo "$(GREENB) $(DEFAULT)\c"
 
-# create $(ALGOFILES)
-obj/%.o: src/algo/%.c $(LRM_H) $(LFT_H)
+# create algo object files
+obj/%.o: src/algo/%.c $(LAM_H) $(LFT_H) $(ALG_H)
+	@$(CC) $(CF) -c $< -o $@ -I include -I $(LFT)/include
+	@echo "$(GREENB) $(DEFAULT)\c"
+
+# create libway object files
+obj/%.o: src/libway/%.c $(LAM_H) $(LFT_H)
 	@$(CC) $(CF) -c $< -o $@ -I include -I $(LFT)/include
 	@echo "$(GREENB) $(DEFAULT)\c"
 

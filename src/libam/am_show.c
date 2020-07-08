@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 14:45:00 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/06 19:47:19 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/08 16:24:18 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,26 +79,20 @@ static void	print_am(t_am *am)
 	}
 }
 
-static void	print_flow(t_am *am)
+static void	print_found_paths(t_am *am)
 {
-	int		max_len;
 	size_t	i;
 	size_t	j;
 
-	max_len = uintlen(am->size);
-	i = -1;
-	ft_printf("%*c", max_len + 2, ' ');
-	while (++i < am->size)
-		ft_printf("{green}%*zu{eoc}| ", max_len, i);
-	ft_printf("\n");
 	i = -1;
 	while (++i < am->size)
 	{
-		ft_printf("{green}%*zu{eoc}| ", max_len, i);
 		j = -1;
 		while (++j < am->size)
-			ft_printf("%*d  ", max_len, am->flow[i][j]);
-		ft_printf("\n");
+		{
+			if (am->flow[i][j] == 1)
+				ft_printf("%s->%s\n", am->rooms[i]->name, am->rooms[j]->name);
+		}
 	}
 }
 
@@ -110,5 +104,5 @@ void		am_show(t_am *am)
 	ft_printf("\n");
 	print_am(am);
 	ft_printf("\n");
-	print_flow(am);
+	print_found_paths(am);
 }

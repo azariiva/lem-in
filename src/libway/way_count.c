@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   algo.h                                             :+:      :+:    :+:   */
+/*   way_count.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/06 18:52:07 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/08 15:54:00 by blinnea          ###   ########.fr       */
+/*   Created: 2020/07/08 04:29:22 by blinnea           #+#    #+#             */
+/*   Updated: 2020/07/08 04:30:50 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ALGO_H
+#include "libway.h"
 
-# define ALGO_H
+size_t	way_count(t_am *am)
+{
+	size_t	i;
+	size_t	ctr;
 
-# include "libam.h"
-
-int		find_shortest(t_am *am);
-void	run_ants(t_am *am);
-
-#endif
+	ctr = 0;
+	i = -1;
+	while (++i < am->size)
+	{
+		if (am->flow[0][i] == 1)
+			++ctr;
+	}
+	return (ctr);
+}

@@ -6,12 +6,18 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 17:14:53 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/06 21:14:54 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/07 19:29:30 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libam.h"
 #include <unistd.h>
+
+static void	del(void *content, size_t size)
+{
+	if (content && size)
+		ft_memdel(&content);
+}
 
 static int	am_addrooms(t_am *am, t_list *rooms, t_room *start, t_room *end)
 {
@@ -63,8 +69,11 @@ t_am		*am_new(int fd)
 	if (!(am->ants = ft_atoi(line)))
 	{
 		ft_printf_fd(STDERR_FILENO, "{red}Error:{eoc} no ants.");
+		am_del(&am);
+		get_next_line(-1, NULL);
 		return (NULL);
 	}
+	ft_strdel(&line);
 	while (get_next_line(fd, &line) == OK && !ft_strchr(line, '-'))
 	{
 		if ((room = ro_atoroom(line)))
@@ -81,12 +90,13 @@ t_am		*am_new(int fd)
 	if (!ft_strchr(line, '-'))
 	{
 		ft_printf_fd(STDERR_FILENO, "{red}Error:{eoc} no links between rooms.");
+		ft_lstdel(&rooms, del);
 		am_del(&am);
 		get_next_line(-1, NULL);
 		return (NULL);
 	}
 	am_addrooms(am, rooms, ser[0], ser[1]);
-
+	ft_lstdel(&rooms, del);
 	while (OK)
 	{
 		if (am_addlink(line, am) == ERR)
