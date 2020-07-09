@@ -36,7 +36,7 @@ static void			spread_ants(t_ant *ants, size_t q, t_way *ways)
 	}
 }
 
-int		 	run_ants(t_am *am)
+int		 		run_ants(t_am *am)
 {
 	t_ant		*ants;
 	t_way		*ways;
