@@ -14,12 +14,13 @@ int		main(void)
 		return (-1);
 	if (find_shortest(am) != OK)
 	{
-		ft_printf_fd(STDERR_FILENO, "{red}Error:{eoc} no paths exist.\n");
+		ft_putendl_fd("ERROR", STDERR_FILENO);
 		am_del(&am);
 		return (-1);
 	}
 	while (find_shortest(am) == OK)
 		;
+	ft_printf("\n");
 	if (run_ants(am) == ERR)
 	{
 		am_del(&am);
