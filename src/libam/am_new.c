@@ -28,6 +28,15 @@ static void	full_del(void *content, size_t size)
 	}
 }
 
+static void	am_memalloc(t_am *am)
+{
+	am->size = ft_lstsize(rooms) + 2;
+	am->rooms = ft_memalloc(am->size * sizeof(t_room *));
+	am->edges = ft_memalloc(am->size * sizeof(int *));
+	am->flow = ft_memalloc(am->size * sizeof(int *));
+	am->addgraph = ft_memalloc(am->size * sizeof(int *));
+}
+
 static int	am_addrooms(t_am *am, t_list *rooms, t_room *start, t_room *end)
 {
 	size_t	i;
@@ -37,11 +46,7 @@ static int	am_addrooms(t_am *am, t_list *rooms, t_room *start, t_room *end)
 		ft_putendl_fd("ERROR", STDERR_FILENO);
 		return (ERR);
 	}
-	am->size = ft_lstsize(rooms) + 2;
-	am->rooms = ft_memalloc(am->size * sizeof(t_room *));
-	am->edges = ft_memalloc(am->size * sizeof(int *));
-	am->flow = ft_memalloc(am->size * sizeof(int *));
-	am->addgraph = ft_memalloc(am->size * sizeof(int *));
+	am_memalloc(am);
 	i = -1;
 	while (++i < am->size)
 	{
