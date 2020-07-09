@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 17:14:53 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/08 18:54:03 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/09 14:44:18 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,20 @@ static int	am_addrooms(t_am *am, t_list *rooms, t_room *start, t_room *end)
 	return (OK);
 }
 
+int			check_room_coords(t_room *room, t_list *rooms)
+{
+	t_list	*ptr;
+
+	ptr = rooms;
+	while (ptr)
+	{
+		if (co_equal(room->coord, (*(t_room **)ptr->content)->coord))
+			return (ERR);
+		ptr = ptr->next;
+	}
+	return (OK);
+}
+
 t_am		*am_new(int fd)
 {
 	t_am	*am;
@@ -79,14 +93,15 @@ t_am		*am_new(int fd)
 		return (NULL);
 	}
 	get_next_line(fd, &line);
-	if (!(am->ants = ft_atoi(line)))
+	if ((am->ants = ft_atoi(line)) <= 0)
 	{
-		ft_printf_fd(STDERR_FILENO, "{red}Error:{eoc} no ants.\n");
+		ft_printf_fd(STDERR_FILENO, "{red}Error:{eoc} wrong number of ants.\n");
 		am_del(&am);
 		ft_strdel(&line);
 		get_next_line(-1, NULL);
 		return (NULL);
 	}
+	ft_printf("%d\n", am->ants);
 	ft_strdel(&line);
 	while (get_next_line(fd, &line) == OK && !ft_strchr(line, '-'))
 	{
@@ -102,6 +117,21 @@ t_am		*am_new(int fd)
 		}
 		else if (room != (t_room *)OK)
 		{
+			if (check_room_coords(room, rooms) == ERR ||
+			(ser[0] && co_equal(room->coord, ser[0]->coord)) ||
+			(ser[1] && co_equal(room->coord, ser[1]->coord)))
+			{
+				ft_printf_fd(STDERR_FILENO,
+				"{red}Error:{eoc} duplicate coordinates.\n");
+				ro_del(ser);
+				ro_del(ser + 1);
+				am_del(&am);
+				ft_lstdel(&rooms, full_del);
+				ft_strdel(&line);
+				get_next_line(-1, NULL);
+				return (NULL);
+			}
+
 			if (room->weight == START_ROOM)
 				ser[0] = room;
 			else if (room->weight == END_ROOM)

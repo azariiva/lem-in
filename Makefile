@@ -6,11 +6,12 @@
 #    By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/28 15:47:12 by blinnea           #+#    #+#              #
-#    Updated: 2020/07/08 05:03:12 by blinnea          ###   ########.fr        #
+#    Updated: 2020/07/09 15:01:51 by blinnea          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SHELL=/bin/zsh
+NAME = lem-in
 # **************************************************************************** #
 #                                 COLOURS                                      #
 # **************************************************************************** #
@@ -62,13 +63,13 @@ ALL_O = $(LRMOFILES) $(LCOOFILES) $(LAMOFILES) $(ALGOFILES) $(WAYOFILES) obj/mai
 
 .PHONY: $(LFT) clean fclean re all
 
-all: obj $(LFT) main
+all: $(NAME)
 	@echo "\n> $(GREEN)... was created$(DEFAULT)"
 
-obj/main.o: src/main.c $(ALL_H)
+obj/main.o: src/main.c obj $(ALL_H)
 	@$(CC) $(CF) -c $< -o $@ -I $(LFT)/include -I include
 
-main: $(ALL_O) $(LFT)/$(LFT).a
+$(NAME): $(ALL_O) $(LFT)
 	@$(CC) $(CF) $(ALL_O) -L$(LFT) -lft -o $@
 
 # create obj directory
@@ -76,27 +77,27 @@ obj:
 	@mkdir -p obj
 
 # create $(LRMOFILES)
-obj/%.o: src/libroom/%.c $(LFT_H) $(LRM_H) $(LCO_H)
+obj/%.o: src/libroom/%.c obj $(LFT_H) $(LRM_H) $(LCO_H)
 	@$(CC) $(CF) -c $< -o $@ -I $(LFT)/include -I include
 	@echo "$(GREENB) $(DEFAULT)\c"
 
 # create $(LCOOFILES)
-obj/%.o: src/libcoord/%.c $(LCO_H)
+obj/%.o: src/libcoord/%.c obj $(LCO_H)
 	@$(CC) $(CF) -c $< -o $@ -I include
 	@echo "$(GREENB) $(DEFAULT)\c"
 
 # create libam object files
-obj/%.o: src/libam/%.c $(LRM_H) $(LFT_H)
+obj/%.o: src/libam/%.c obj $(LRM_H) $(LFT_H)
 	@$(CC) $(CF) -c $< -o $@ -I include -I $(LFT)/include
 	@echo "$(GREENB) $(DEFAULT)\c"
 
 # create algo object files
-obj/%.o: src/algo/%.c $(LAM_H) $(LFT_H) $(ALG_H)
+obj/%.o: src/algo/%.c obj $(LAM_H) $(LFT_H) $(ALG_H)
 	@$(CC) $(CF) -c $< -o $@ -I include -I $(LFT)/include
 	@echo "$(GREENB) $(DEFAULT)\c"
 
 # create libway object files
-obj/%.o: src/libway/%.c $(LAM_H) $(LFT_H)
+obj/%.o: src/libway/%.c obj $(LAM_H) $(LFT_H)
 	@$(CC) $(CF) -c $< -o $@ -I include -I $(LFT)/include
 	@echo "$(GREENB) $(DEFAULT)\c"
 
@@ -105,7 +106,7 @@ $(LFT):
 	@make all -C $(LFT)
 
 fclean: clean
-	@rm -f main
+	@rm -f $(NAME)
 	@echo "> $(RED)... fclean$(DEFAULT)"
 
 clean:

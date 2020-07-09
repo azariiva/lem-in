@@ -19,6 +19,7 @@ int		main(void)
 	}
 	while (find_shortest(am) == OK)
 		;
+	ft_printf("\n");
 	if (run_ants(am) == ERR)
 	{
 		am_del(&am);
