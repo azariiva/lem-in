@@ -62,13 +62,13 @@ ALL_O = $(LRMOFILES) $(LCOOFILES) $(LAMOFILES) $(ALGOFILES) $(WAYOFILES) obj/mai
 
 .PHONY: $(LFT) clean fclean re all
 
-all: obj $(LFT) main
+all: obj $(LFT) lem-in
 	@echo "\n> $(GREEN)... was created$(DEFAULT)"
 
 obj/main.o: src/main.c $(ALL_H)
 	@$(CC) $(CF) -c $< -o $@ -I $(LFT)/include -I include
 
-main: $(ALL_O) $(LFT)/$(LFT).a
+lem-in: $(ALL_O) $(LFT)/$(LFT).a
 	@$(CC) $(CF) $(ALL_O) -L$(LFT) -lft -o $@
 
 # create obj directory
@@ -105,7 +105,7 @@ $(LFT):
 	@make all -C $(LFT)
 
 fclean: clean
-	@rm -f main
+	@rm -f lem-in
 	@echo "> $(RED)... fclean$(DEFAULT)"
 
 clean:
