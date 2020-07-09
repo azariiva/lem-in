@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 04:31:04 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/08 18:20:13 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/09 16:37:40 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int		add_way(size_t v, t_way *way, t_am *am)
 	way->len = find_waylen(v, am) + 2;
 	if (!(way->nodes = ft_memalloc(way->len * sizeof(size_t))))
 	{
-		ft_printf_fd(STDERR_FILENO, "{red}Error:{eoc} allocation error.\n");
+		ft_putendl_fd("ERROR", STDERR_FILENO);
 		return (ERR);
 	}
 	way->nodes[0] = 0;
@@ -77,7 +77,7 @@ t_way			*way_find_all(t_am *am)
 	wc = way_count(am);
 	if (!(ways = ft_memalloc((wc + 1) * sizeof(t_way))))
 	{
-		ft_printf_fd(STDERR_FILENO, "{red}Error:{eoc} allocation error.\n");
+		ft_putendl_fd("ERROR", STDERR_FILENO);
 		return (NULL);
 	}
 	i = -1;

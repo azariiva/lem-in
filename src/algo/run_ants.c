@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 04:07:24 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/08 18:20:17 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/09 16:36:08 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int		 	run_ants(t_am *am)
 
 	if (!(ants = ft_memalloc(am->ants * sizeof(t_ant))))
 	{
-		ft_printf_fd(STDERR_FILENO, "{red}Error:{eoc} allocation error.\n");
+		ft_putendl_fd("ERROR", STDERR_FILENO);
 		return (ERR);
 	}
 	if (!(ways = way_find_all(am)))

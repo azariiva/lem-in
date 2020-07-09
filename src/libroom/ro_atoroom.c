@@ -52,7 +52,7 @@ t_room			*ro_atoroom(char *line)
 
 	if (line[0] == 'L')
 	{
-		ft_printf_fd(STDERR_FILENO, "{red}Error:{eoc} line starts with \'L\'\n");
+		ft_putendl_fd("ERROR", STDERR_FILENO);
 		return ((t_room *)ERR);
 	}
 	else if (line[0] == '#')
@@ -72,16 +72,18 @@ t_room			*ro_atoroom(char *line)
 			}
 			ft_strdel(&line);
 		}
+		else
+			ft_printf("%s\n", line);
 		return ((t_room *)OK);
 	}
 	if (!(data = ft_strsplit_plus(line, ft_isspace)))
 	{
-		ft_printf_fd(STDERR_FILENO, "{red}Error:{eoc} allocation error.\n");
+		ft_putendl_fd("ERROR", STDERR_FILENO);
 		return ((t_room *)ERR);
 	}
 	if (getdatasize(data) != 3 || !(isnum(data[1]) && isnum(data[2])))
 	{
-		ft_printf_fd(STDERR_FILENO, "{red}Error:{eoc} wrong room description.\n");
+		ft_putendl_fd("ERROR", STDERR_FILENO);
 		free_data(&data);
 		return ((t_room *)ERR);
 	}

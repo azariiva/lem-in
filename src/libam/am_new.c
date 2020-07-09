@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 17:14:53 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/09 14:44:18 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/09 16:36:57 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	am_addrooms(t_am *am, t_list *rooms, t_room *start, t_room *end)
 
 	if (!start || !end)
 	{
-		ft_printf_fd(STDERR_FILENO, "{red}Error:{eoc} no start or end.\n");
+		ft_putendl_fd("ERROR", STDERR_FILENO);
 		return (ERR);
 	}
 	am->size = ft_lstsize(rooms) + 2;
@@ -89,13 +89,13 @@ t_am		*am_new(int fd)
 	rooms = NULL;
 	if (!(am = ft_memalloc(sizeof(t_am))))
 	{
-		ft_printf_fd(STDERR_FILENO, "{red}Error:{eoc} allocation error.\n");
+		ft_putendl_fd("ERROR", STDERR_FILENO);
 		return (NULL);
 	}
 	get_next_line(fd, &line);
 	if ((am->ants = ft_atoi(line)) <= 0)
 	{
-		ft_printf_fd(STDERR_FILENO, "{red}Error:{eoc} wrong number of ants.\n");
+		ft_putendl_fd("ERROR", STDERR_FILENO);
 		am_del(&am);
 		ft_strdel(&line);
 		get_next_line(-1, NULL);
@@ -121,8 +121,7 @@ t_am		*am_new(int fd)
 			(ser[0] && co_equal(room->coord, ser[0]->coord)) ||
 			(ser[1] && co_equal(room->coord, ser[1]->coord)))
 			{
-				ft_printf_fd(STDERR_FILENO,
-				"{red}Error:{eoc} duplicate coordinates.\n");
+				ft_putendl_fd("ERROR", STDERR_FILENO);
 				ro_del(ser);
 				ro_del(ser + 1);
 				am_del(&am);
@@ -138,7 +137,7 @@ t_am		*am_new(int fd)
 				ser[1] = room;
 			else if (!(new = ft_lstnew(&room, sizeof(t_room **))))
 			{
-				ft_printf_fd(STDERR_FILENO, "{red}Error:{eoc} allocation error.");
+				ft_putendl_fd("ERROR", STDERR_FILENO);
 				ro_del(ser);
 				ro_del(ser + 1);
 				am_del(&am);
@@ -155,7 +154,7 @@ t_am		*am_new(int fd)
 	}
 	if (!ft_strchr(line, '-'))
 	{
-		ft_printf_fd(STDERR_FILENO, "{red}Error:{eoc} no links between rooms.\n");
+		ft_putendl_fd("ERROR", STDERR_FILENO);
 		ro_del(ser);
 		ro_del(ser + 1);
 		ft_lstdel(&rooms, full_del);
