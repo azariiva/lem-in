@@ -10,7 +10,10 @@ int		main(void)
 	t_am	*am;
 
 	if (!(am = am_new(STDIN_FILENO)))
+	{
+		ft_putendl_fd("ERROR", STDERR_FILENO);
 		return (-1);
+	}
 	if (find_shortest(am) != OK)
 	{
 		ft_putendl_fd("ERROR", STDERR_FILENO);

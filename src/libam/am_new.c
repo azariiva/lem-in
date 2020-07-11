@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 17:14:53 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/09 16:36:57 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/11 03:05:10 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,7 @@ static int	am_addrooms(t_am *am, t_list *rooms, t_room *start, t_room *end)
 	size_t	i;
 
 	if (!start || !end)
-	{
-		ft_putendl_fd("ERROR", STDERR_FILENO);
 		return (ERR);
-	}
 	am->size = ft_lstsize(rooms) + 2;
 	am->rooms = ft_memalloc(am->size * sizeof(t_room *));
 	am->edges = ft_memalloc(am->size * sizeof(int *));
@@ -88,14 +85,10 @@ t_am		*am_new(int fd)
 	ser[1] = NULL;
 	rooms = NULL;
 	if (!(am = ft_memalloc(sizeof(t_am))))
-	{
-		ft_putendl_fd("ERROR", STDERR_FILENO);
 		return (NULL);
-	}
 	get_next_line(fd, &line);
 	if ((am->ants = ft_atoi(line)) <= 0)
 	{
-		ft_putendl_fd("ERROR", STDERR_FILENO);
 		am_del(&am);
 		ft_strdel(&line);
 		get_next_line(-1, NULL);
@@ -121,7 +114,6 @@ t_am		*am_new(int fd)
 			(ser[0] && co_equal(room->coord, ser[0]->coord)) ||
 			(ser[1] && co_equal(room->coord, ser[1]->coord)))
 			{
-				ft_putendl_fd("ERROR", STDERR_FILENO);
 				ro_del(ser);
 				ro_del(ser + 1);
 				am_del(&am);
@@ -137,7 +129,6 @@ t_am		*am_new(int fd)
 				ser[1] = room;
 			else if (!(new = ft_lstnew(&room, sizeof(t_room **))))
 			{
-				ft_putendl_fd("ERROR", STDERR_FILENO);
 				ro_del(ser);
 				ro_del(ser + 1);
 				am_del(&am);
@@ -154,7 +145,6 @@ t_am		*am_new(int fd)
 	}
 	if (!ft_strchr(line, '-'))
 	{
-		ft_putendl_fd("ERROR", STDERR_FILENO);
 		ro_del(ser);
 		ro_del(ser + 1);
 		ft_lstdel(&rooms, full_del);

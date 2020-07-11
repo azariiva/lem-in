@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 14:24:46 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/09 16:38:42 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/11 03:01:04 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,26 +39,20 @@ static char			**am_atoslink(char *line)
 	char	*trimmed;
 
 	if ((trimmed = ft_strtrim(line)) == NULL)
-	{
-		ft_putendl_fd("ERROR", STDERR_FILENO);
 		return (NULL);
-	}
 	if ((link = ft_strsplit(trimmed, '-')) == NULL)
 	{
-		ft_putendl_fd("ERROR", STDERR_FILENO);
 		ft_strdel(&trimmed);
 		return (NULL);
 	}
 	ft_strdel(&trimmed);
 	if (getlinksize(link) != 2)
 	{
-		ft_putendl_fd("ERROR", STDERR_FILENO);
 		free_slink(link);
 		return (NULL);
 	}
 	if (!ft_strcmp(link[0], link[1]))
 	{
-		ft_putendl_fd("ERROR", STDERR_FILENO);
 		free_slink(link);
 		return (NULL);
 	}
@@ -80,7 +74,6 @@ int					am_addlink(char *line, t_am *am)
 	if ((int)(link[0] = am_str_to_idx(slink[0], am)) == -1 ||
 	(int)(link[1] = am_str_to_idx(slink[1], am)) == -1)
 	{
-		ft_putendl_fd("ERROR", STDERR_FILENO);
 		free_slink(slink);
 		return (ERR);
 	}

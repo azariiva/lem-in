@@ -51,10 +51,7 @@ t_room			*ro_atoroom(char *line)
 	static int	rtype;
 
 	if (line[0] == 'L')
-	{
-		ft_putendl_fd("ERROR", STDERR_FILENO);
 		return ((t_room *)ERR);
-	}
 	else if (line[0] == '#')
 	{
 		if (line[1] == '#')
@@ -77,13 +74,9 @@ t_room			*ro_atoroom(char *line)
 		return ((t_room *)OK);
 	}
 	if (!(data = ft_strsplit_plus(line, ft_isspace)))
-	{
-		ft_putendl_fd("ERROR", STDERR_FILENO);
 		return ((t_room *)ERR);
-	}
 	if (getdatasize(data) != 3 || !(isnum(data[1]) && isnum(data[2])))
 	{
-		ft_putendl_fd("ERROR", STDERR_FILENO);
 		free_data(&data);
 		return ((t_room *)ERR);
 	}
