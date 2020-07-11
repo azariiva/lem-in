@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 04:31:04 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/11 03:04:46 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/11 03:56:29 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static size_t	find_waylen(size_t v, t_am *am)
 			if (am->flow[v][i] == 1)
 			{
 				v = i;
-				break;
+				break ;
 			}
 		}
 	}
@@ -57,7 +57,7 @@ static int		add_way(size_t v, t_way *way, t_am *am)
 			{
 				way->nodes[i] = j;
 				v = j;
-				break;
+				break ;
 			}
 		}
 	}
@@ -81,7 +81,7 @@ t_way			*way_find_all(t_am *am)
 		if (am->flow[0][i] == 1 && add_way(i, ways + j++, am) == ERR)
 		{
 			way_del(&ways);
-			break;
+			break ;
 		}
 	}
 	return (ways);

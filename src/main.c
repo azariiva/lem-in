@@ -1,8 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/11 04:00:37 by blinnea           #+#    #+#             */
+/*   Updated: 2020/07/11 04:26:07 by blinnea          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libway.h"
 #include "algo.h"
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
 #include <unistd.h>
 
 int		main(void)

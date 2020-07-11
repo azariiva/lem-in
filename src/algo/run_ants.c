@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 04:07:24 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/11 03:04:47 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/11 04:03:53 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "libway.h"
 #include <unistd.h>
 
-static void			spread_ants(t_ant *ants, size_t q, t_way *ways)
+static void	spread_ants(t_ant *ants, size_t q, t_way *ways)
 {
 	size_t	i;
 	t_way	*chosen;
@@ -36,12 +36,37 @@ static void			spread_ants(t_ant *ants, size_t q, t_way *ways)
 	}
 }
 
-int		 	run_ants(t_am *am)
+static void	i_hate_norminette(t_am *am, t_ant *ants)
+{
+	int	flag;
+	int	i;
+
+	flag = 1;
+	while (flag && (i = -1))
+	{
+		flag = 0;
+		while (++i < am->ants)
+		{
+			if (ants[i].cur_node != ants[i].way->len - 1 &&
+				!am->rooms[ants[i].way->nodes[ants[i].cur_node + 1]]->visited)
+			{
+				am->rooms[ants[i].way->nodes[ants[i].cur_node]]->visited = 0;
+				ants[i].cur_node++;
+				(flag ? ft_printf(" ") : 0);
+				flag = 1;
+				ft_printf("L%zu-%s", i + 1, am->rooms[ants[i].way->nodes[ants[i].cur_node]]->name);
+				if (ants[i].cur_node != ants[i].way->len - 1)
+					am->rooms[ants[i].way->nodes[ants[i].cur_node]]->visited = 1;
+			}
+		}
+		(flag ? ft_printf("\n") : 0);
+	}
+}
+
+int			run_ants(t_am *am)
 {
 	t_ant		*ants;
 	t_way		*ways;
-	int			flag;
-	int			i;
 
 	if (!(ants = ft_memalloc(am->ants * sizeof(t_ant))))
 		return (ERR);
@@ -52,29 +77,7 @@ int		 	run_ants(t_am *am)
 	}
 	spread_ants(ants, am->ants, ways);
 	am_clear_visited(am);
-	flag = 1;
-	while (flag)
-	{
-		flag = 0;
-		i = -1;
-		while (++i < am->ants)
-		{
-			if (ants[i].cur_node != ants[i].way->len - 1 &&
-				!am->rooms[ants[i].way->nodes[ants[i].cur_node + 1]]->visited)
-			{
-				am->rooms[ants[i].way->nodes[ants[i].cur_node]]->visited = 0;
-				ants[i].cur_node++;
-				if (flag)
-					ft_printf(" ");
-				ft_printf("L%zu-%s", i + 1, am->rooms[ants[i].way->nodes[ants[i].cur_node]]->name);
-				flag = 1;
-				if (ants[i].cur_node != ants[i].way->len - 1)
-					am->rooms[ants[i].way->nodes[ants[i].cur_node]]->visited = 1;
-			}
-		}
-		if (flag)
-			ft_printf("\n");
-	}
+	i_hate_norminette(am, ants);
 	ft_memdel((void **)&ants);
 	way_del(&ways);
 	return (OK);

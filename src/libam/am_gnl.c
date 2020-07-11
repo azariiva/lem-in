@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 03:08:48 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/11 03:25:17 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/11 03:55:28 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,8 @@ static int	echo(char **line, int cmd)
 	}
 	else if (cmd == EC_SHOW)
 	{
-		while (!ft_queisempty(q))
+		while (!ft_queisempty(q) && (l = ft_quepop(q)))
 		{
-			l = ft_quepop(q);
 			ft_printf("%s\n", *(char **)l->content);
 			ft_lstdelone(&l, del);
 		}

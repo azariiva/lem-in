@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 16:08:00 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/08 16:09:53 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/11 03:54:19 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	uintlen(size_t n)
 	return (len);
 }
 
-void	am_show_flow(t_am *am)
+void		am_show_flow(t_am *am)
 {
 	int		max_len;
 	size_t	i;

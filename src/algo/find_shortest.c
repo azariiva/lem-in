@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 18:32:15 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/08 17:51:21 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/11 03:56:43 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int		find_shortest(t_am *am)
 				am->flow[current][idx] -= 1;
 				am->flow[idx][current] += 1;
 				current = idx;
-				break;
+				break ;
 			}
 		}
 	}

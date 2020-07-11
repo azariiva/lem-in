@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 17:14:53 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/11 03:27:29 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/11 03:56:43 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,7 @@ t_am		*am_new(int fd)
 			return (NULL);
 		}
 		if (am_gnl(fd, &line) != OK)
-			break;
+			break ;
 	}
 	am_gnl(-1, NULL);
 	return (am);
