@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 14:24:46 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/11 03:27:29 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/11 03:40:58 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ int					am_addlink(char *line, t_am *am)
 		return (ERR);
 	}
 	free_slink(slink);
+	if (am->edges[link[0]][link[1]] || am->edges[link[1]][link[0]])
+		return (ERR);
 	am->edges[link[0]][link[1]] = 1;
 	am->edges[link[1]][link[0]] = 1;
 	return (OK);
