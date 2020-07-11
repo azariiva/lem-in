@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 14:19:27 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/06 14:23:59 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/11 05:40:48 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ size_t	am_str_to_idx(char *str, t_am *am)
 	idx = -1;
 	while (++idx < am->size)
 	{
-		if (!ft_strcmp(str, am->rooms[idx]->name))
+		if (!ft_strcmp(str, am->r[idx]->name))
 			return (idx);
 	}
 	return (-1);

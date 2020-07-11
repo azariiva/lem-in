@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 14:45:00 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/08 16:24:18 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/11 05:45:25 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	print_rooms(t_am *am)
 	i = -1;
 	while (++i < am->size)
 	{
-		len = ft_strlen(am->rooms[i]->name);
+		len = ft_strlen(am->r[i]->name);
 		if (max_len < len)
 			max_len = len;
 	}
@@ -45,14 +45,14 @@ static void	print_rooms(t_am *am)
 	i = -1;
 	while (++i < am->size)
 	{
-		len = ft_strlen(am->rooms[i]->name) + 1;
+		len = ft_strlen(am->r[i]->name) + 1;
 		ft_printf("%*d|", max_len, i);
 	}
 	ft_printf("\n");
 	i = -1;
-	ft_printf("%*c", ft_strlen("Rooms: "), ' ');
+	ft_printf("%*c", ft_strlen("r: "), ' ');
 	while (++i < am->size)
-		ft_printf("%*s|", max_len, am->rooms[i]->name);
+		ft_printf("%*s|", max_len, am->r[i]->name);
 	ft_printf("\n");
 }
 
@@ -74,7 +74,7 @@ static void	print_am(t_am *am)
 		ft_printf("{green}%*zu{eoc}| ", max_len, i);
 		j = -1;
 		while (++j < am->size)
-			ft_printf("%*d  ", max_len, am->edges[i][j]);
+			ft_printf("%*d  ", max_len, am->e[i][j]);
 		ft_printf("\n");
 	}
 }
@@ -90,8 +90,8 @@ static void	print_found_paths(t_am *am)
 		j = -1;
 		while (++j < am->size)
 		{
-			if (am->flow[i][j] == 1)
-				ft_printf("%s->%s\n", am->rooms[i]->name, am->rooms[j]->name);
+			if (am->f[i][j] == 1)
+				ft_printf("%s->%s\n", am->r[i]->name, am->r[j]->name);
 		}
 	}
 }
@@ -99,7 +99,7 @@ static void	print_found_paths(t_am *am)
 void		am_show(t_am *am)
 {
 	ft_printf("Ants: %d\nSize: %zu\n", am->ants, am->size);
-	ft_printf("Rooms: ");
+	ft_printf("r: ");
 	print_rooms(am);
 	ft_printf("\n");
 	print_am(am);

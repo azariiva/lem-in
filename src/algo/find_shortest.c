@@ -6,111 +6,79 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 18:32:15 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/11 03:56:43 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/11 06:45:22 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "algo.h"
 #include <unistd.h>
 
-static void	del(void *content, size_t size)
+static void		idfk1(t_am *am, t_list *v, t_queue *q, size_t i)
 {
-	if (content && size)
-		ft_memdel(&content);
+	(am->r[v->size]->w - 1 < am->r[i]->w ? am_rmf(am, i) : 0);
+	am->r[i]->v = 1;
+	am->a[v->size][i] = 1;
+	am->a[i][v->size] = -1;
+	am->r[i]->w = am->r[v->size]->w - 1;
+	ft_queadd(q, ft_lstnew_ic(i));
 }
 
-int		find_shortest(t_am *am)
+static void		idfk2(t_am *am, t_list *v, t_queue *q, size_t i)
 {
-	t_queue		*queue;
-	t_list		*v;
-	size_t		idx;
-	size_t		current;
-	int			flag;
+	(am->r[v->size]->w + 1 < am->r[i]->w ? am_rmf(am, i) : 0);
+	am->r[i]->v = 1;
+	am->a[v->size][i] = 1;
+	am->a[i][v->size] = -1;
+	am->r[i]->w = am->r[v->size]->w + 1;
+	ft_queadd(q, ft_lstnew_ic(i));
+}
 
-	am_clear_addgraph(am);
-	am_clear_visited(am);
-	am->rooms[0]->visited = 1;
-	queue = ft_quenew(NULL, 0);
-	// ft_printf("____find_shortest____\n");
-	while (!ft_queisempty(queue) && !am->rooms[am->size - 1]->visited)
-	{
-		flag = 1;
-		v = ft_quepop(queue);
-		idx = -1;
-		while (++idx < am->size)
-		{
-			if (am->edges[v->content_size][idx] &&
-				am->flow[v->content_size][idx] == -1 &&
-				!am->rooms[idx]->visited)
-			{
-				// ft_printf("%zu(%d)-(-1)->%zu(%d)\n", v->content_size, am->rooms[v->content_size]->weight, idx, am->rooms[idx]->weight);
-				if (am->rooms[v->content_size]->weight - 1 < am->rooms[idx]->weight)
-				{
-					// ft_printf("before:\n");
-					// am_show_flow(am);
-					am_removeflow(am, idx);
-					// ft_printf("after:\n");
-					// am_show_flow(am);
-					// ft_printf("\n");
-				}
-				am->rooms[idx]->weight = am->rooms[v->content_size]->weight - 1;
-				am->rooms[idx]->visited = 1;
-				am->addgraph[v->content_size][idx] = 1;
-				am->addgraph[idx][v->content_size] = -1;
-				flag = 0;
-				ft_queadd(queue, ft_lstnew_ic(idx));
-			}
-		}
-		if (flag)
-		{
-			idx = -1;
-			while (++idx < am->size)
-			{
-				if (am->edges[v->content_size][idx] &&
-					!am->flow[v->content_size][idx] &&
-					!am->rooms[idx]->visited)
-				{
-					// ft_printf("%zu(%d)-(+1)->%zu(%d)\n", v->content_size, am->rooms[v->content_size]->weight, idx, am->rooms[idx]->weight);
-					if (am->rooms[v->content_size]->weight + 1 < am->rooms[idx]->weight)
-					{
-						// ft_printf("before:\n");
-						// am_show_flow(am);
-						am_removeflow(am, idx);
-						// ft_printf("after:\n");
-						// am_show_flow(am);
-						// ft_printf("\n");
-					}
-					am->rooms[idx]->weight = am->rooms[v->content_size]->weight + 1;
-					am->rooms[idx]->visited = 1;
-					am->addgraph[v->content_size][idx] = 1;
-					am->addgraph[idx][v->content_size] = -1;
-					ft_queadd(queue, ft_lstnew_ic(idx));
-				}
-			}
-		}
-		ft_lstdelone_ic(&v);
-	}
-	ft_quedel(&queue, del);
-	if (!am->rooms[am->size - 1]->visited)
+static int		life_sucks(t_am *am, t_queue **q)
+{
+	size_t	i;
+	size_t	j;
+
+	ft_quedel(q, del);
+	if (!am->r[am->size - 1]->v)
 		return (END);
-	current = am->size - 1;
-	while (current != 0)
-	{
-		idx = -1;
-		while (++idx < am->size)
-		{
-			if (am->addgraph[current][idx] == -1)
+	j = am->size - 1;
+	while (j && (i = -1))
+		while (++i < am->size)
+			if (am->a[j][i] == -1)
 			{
-				am->flow[current][idx] -= 1;
-				am->flow[idx][current] += 1;
-				current = idx;
+				am->f[j][i] -= 1;
+				am->f[i][j] += 1;
+				j = i;
 				break ;
 			}
-		}
-	}
-	// ft_printf("flow:\n");
-	// am_show_flow(am);
-	// ft_printf("------------------------------------------------------------\n");
-
 	return (OK);
+}
+
+int				find_shortest(t_am *am)
+{
+	t_queue		*q;
+	t_list		*v;
+	size_t		i;
+	int			f;
+
+	am_clear_av(am);
+	am->r[0]->v = 1;
+	if (!(q = ft_quenew(NULL, 0)))
+		return (ERR);
+	v = NULL;
+	while ((f = 1) && !ft_queisempty(q) && !am->r[am->size - 1]->v)
+	{
+		v = ft_quepop(q);
+		i = -1;
+		while (++i < am->size)
+			if (am->e[v->size][i] && am->f[v->size][i] == -1 && !am->r[i]->v &&
+			!(f = 0))
+				idfk1(am, v, q, i);
+		if (f && (i = -1))
+			while (++i < am->size)
+				if (am->e[v->size][i] && !am->f[v->size][i] && !am->r[i]->v)
+					idfk2(am, v, q, i);
+		ft_lstdelone_ic(&v);
+	}
+	return (life_sucks(am, &q));
 }

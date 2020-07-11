@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/27 23:13:37 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/11 04:04:04 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/11 05:43:52 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 typedef enum	e_rtype
 {
 	MIDDLE_ROOM = 0,
-	START_ROOM = INT_MIN,
-	END_ROOM = INT_MAX
+	SR = INT_MIN,
+	ER = INT_MAX
 }				t_rtype;
 
 # endif
@@ -34,16 +34,16 @@ typedef enum	e_rtype
 typedef struct	s_room
 {
 	char	*name;
-	t_coord	coord;
-	int		visited;
-	int		weight;
+	t_coord	c;
+	int		v;
+	int		w;
 }				t_room;
 
 /*
 ** Function ro_new allocates memory and returns pointer to new room.
 ** Rewritten to work with libam. ✔
 */
-t_room			*ro_new(char *name, t_coord coord, int rtype);
+t_room			*ro_new(char *name, t_coord c, int rtype);
 
 /*
 ** Function ro_atoroom use line and type to create new room using ro_new

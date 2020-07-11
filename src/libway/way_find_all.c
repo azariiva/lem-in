@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 04:31:04 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/11 03:56:29 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/11 05:45:25 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static size_t	find_waylen(size_t v, t_am *am)
 		i = -1;
 		while (++i < am->size)
 		{
-			if (am->flow[v][i] == 1)
+			if (am->f[v][i] == 1)
 			{
 				v = i;
 				break ;
@@ -53,7 +53,7 @@ static int		add_way(size_t v, t_way *way, t_am *am)
 		j = -1;
 		while (++j < am->size)
 		{
-			if (am->flow[v][j] == 1)
+			if (am->f[v][j] == 1)
 			{
 				way->nodes[i] = j;
 				v = j;
@@ -78,7 +78,7 @@ t_way			*way_find_all(t_am *am)
 	j = 0;
 	while (++i < am->size)
 	{
-		if (am->flow[0][i] == 1 && add_way(i, ways + j++, am) == ERR)
+		if (am->f[0][i] == 1 && add_way(i, ways + j++, am) == ERR)
 		{
 			way_del(&ways);
 			break ;

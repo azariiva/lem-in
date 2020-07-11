@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 04:29:22 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/08 04:30:50 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/11 05:45:25 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ size_t	way_count(t_am *am)
 	i = -1;
 	while (++i < am->size)
 	{
-		if (am->flow[0][i] == 1)
+		if (am->f[0][i] == 1)
 			++ctr;
 	}
 	return (ctr);

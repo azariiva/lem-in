@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 16:08:00 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/11 03:54:19 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/11 05:45:25 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void		am_show_flow(t_am *am)
 		ft_printf("{green}%*zu{eoc}| ", max_len, i);
 		j = -1;
 		while (++j < am->size)
-			ft_printf("%*d  ", max_len, am->flow[i][j]);
+			ft_printf("%*d  ", max_len, am->f[i][j]);
 		ft_printf("\n");
 	}
 }

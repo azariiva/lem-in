@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 20:39:59 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/11 03:55:50 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/11 05:46:12 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void		am_show_addgraph(t_am *am)
 		ft_printf("{green}%*zu{eoc}| ", max_len, i);
 		j = -1;
 		while (++j < am->size)
-			ft_printf("%*d  ", max_len, am->addgraph[i][j]);
+			ft_printf("%*d  ", max_len, am->a[i][j]);
 		ft_printf("\n");
 	}
 }

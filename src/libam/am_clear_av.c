@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   am_clear_addgraph.c                                :+:      :+:    :+:   */
+/*   am_clear_av.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/06 19:24:59 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/06 20:37:56 by blinnea          ###   ########.fr       */
+/*   Created: 2020/07/11 06:23:46 by blinnea           #+#    #+#             */
+/*   Updated: 2020/07/11 06:25:01 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libam.h"
 
-void	am_clear_addgraph(t_am *am)
+void			am_clear_av(t_am *am)
 {
-	size_t	idx;
+	size_t	i;
 
-	idx = -1;
-	while (++idx < am->size)
-		ft_bzero((void *)am->addgraph[idx], am->size * sizeof(int));
+	i = -1;
+	while (++i < am->size)
+	{
+		am->r[i]->v = 0;
+		ft_bzero((void *)am->a[i], am->size * sizeof(int));
+	}
 }

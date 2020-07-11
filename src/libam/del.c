@@ -1,22 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   am_clear_visited.c                                 :+:      :+:    :+:   */
+/*   del.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/06 18:42:19 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/06 18:43:40 by blinnea          ###   ########.fr       */
+/*   Created: 2020/07/11 06:29:01 by blinnea           #+#    #+#             */
+/*   Updated: 2020/07/11 06:29:39 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libam.h"
 
-void	am_clear_visited(t_am *am)
+void	del(void *content, size_t size)
 {
-	size_t	i;
-
-	i = -1;
-	while (++i < am->size)
-		am->rooms[i]->visited = 0;
+	if (content && size)
+		ft_memdel(&content);
 }
