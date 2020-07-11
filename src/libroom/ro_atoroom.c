@@ -58,19 +58,11 @@ t_room			*ro_atoroom(char *line)
 		{
 			line = ft_strtrim(line);
 			if (!ft_strcmp(line + 2, "start"))
-			{
 				rtype = START_ROOM;
-				ft_printf("%s\n", line);
-			}
 			else if (!ft_strcmp(line + 2, "end"))
-			{
 				rtype = END_ROOM;
-				ft_printf("%s\n", line);
-			}
 			ft_strdel(&line);
 		}
-		else
-			ft_printf("%s\n", line);
 		return ((t_room *)OK);
 	}
 	if (!(data = ft_strsplit_plus(line, ft_isspace)))
@@ -80,7 +72,6 @@ t_room			*ro_atoroom(char *line)
 		free_data(&data);
 		return ((t_room *)ERR);
 	}
-	ft_printf("%s %s %s\n", data[0], data[1], data[2]);
 	room = ro_new(data[0], (t_coord){ft_atoi(data[1]), ft_atoi(data[2])}, rtype);
 	free_data(&data);
 	rtype = MIDDLE_ROOM;

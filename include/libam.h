@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 16:06:34 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/08 18:08:34 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/11 03:12:13 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,17 @@
 
 # define LIBAM_H
 
-#include "libroom.h"
+# include "libroom.h"
+
+# ifndef E_ECHO_CMD
+#  define E_ECHO_CMD
+enum e_echo_cmd
+{
+	EC_ADD = 1,
+	EC_SHOW = 2,
+	EC_DEL = 3
+};
+# endif
 
 typedef struct	s_am
 {
@@ -38,5 +48,6 @@ void	am_clear_addgraph(t_am *am);
 void	am_show_addgraph(t_am *am);
 void	am_removeflow(t_am *am, size_t v);
 void	am_show_flow(t_am *am);
+int		am_gnl(int fd, char **line);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 14:24:46 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/11 03:01:04 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/11 03:27:29 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,7 @@ int					am_addlink(char *line, t_am *am)
 	int		link[2];
 
 	if (line[0] == '#')
-	{
-		ft_printf("%s\n", line);
 		return (OK);
-	}
 	if (!(slink = am_atoslink(line)))
 		return (ERR);
 	if ((int)(link[0] = am_str_to_idx(slink[0], am)) == -1 ||
@@ -77,7 +74,6 @@ int					am_addlink(char *line, t_am *am)
 		free_slink(slink);
 		return (ERR);
 	}
-	ft_printf("%s-%s\n", slink[0], slink[1]);
 	free_slink(slink);
 	am->edges[link[0]][link[1]] = 1;
 	am->edges[link[1]][link[0]] = 1;

@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 17:14:53 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/11 03:05:10 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/11 03:27:29 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,17 +86,14 @@ t_am		*am_new(int fd)
 	rooms = NULL;
 	if (!(am = ft_memalloc(sizeof(t_am))))
 		return (NULL);
-	get_next_line(fd, &line);
+	am_gnl(fd, &line);
 	if ((am->ants = ft_atoi(line)) <= 0)
 	{
 		am_del(&am);
-		ft_strdel(&line);
-		get_next_line(-1, NULL);
+		am_gnl(-1, NULL);
 		return (NULL);
 	}
-	ft_printf("%d\n", am->ants);
-	ft_strdel(&line);
-	while (get_next_line(fd, &line) == OK && !ft_strchr(line, '-'))
+	while (am_gnl(fd, &line) == OK && !ft_strchr(line, '-'))
 	{
 		if ((room = ro_atoroom(line)) == (t_room *)ERR)
 		{
@@ -104,8 +101,7 @@ t_am		*am_new(int fd)
 			ro_del(ser + 1);
 			am_del(&am);
 			ft_lstdel(&rooms, full_del);
-			ft_strdel(&line);
-			get_next_line(-1, NULL);
+			am_gnl(-1, NULL);
 			return (NULL);
 		}
 		else if (room != (t_room *)OK)
@@ -118,8 +114,7 @@ t_am		*am_new(int fd)
 				ro_del(ser + 1);
 				am_del(&am);
 				ft_lstdel(&rooms, full_del);
-				ft_strdel(&line);
-				get_next_line(-1, NULL);
+				am_gnl(-1, NULL);
 				return (NULL);
 			}
 
@@ -134,14 +129,12 @@ t_am		*am_new(int fd)
 				am_del(&am);
 				ro_del(&room);
 				ft_lstdel(&rooms, full_del);
-				ft_strdel(&line);
-				get_next_line(-1, NULL);
+				am_gnl(-1, NULL);
 				return (NULL);
 			}
 			else
 				ft_lstadd(&rooms, new);
 		}
-		ft_strdel(&line);
 	}
 	if (!ft_strchr(line, '-'))
 	{
@@ -149,18 +142,16 @@ t_am		*am_new(int fd)
 		ro_del(ser + 1);
 		ft_lstdel(&rooms, full_del);
 		am_del(&am);
-		ft_strdel(&line);
-		get_next_line(-1, NULL);
+		am_gnl(-1, NULL);
 		return (NULL);
 	}
 	if (am_addrooms(am, rooms, ser[0], ser[1]) == ERR)
 	{
-		ft_strdel(&line);
 		ro_del(ser);
 		ro_del(ser + 1);
 		ft_lstdel(&rooms, full_del);
 		am_del(&am);
-		get_next_line(-1, NULL);;
+		am_gnl(-1, NULL);;
 		return (NULL);
 	}
 	ft_lstdel(&rooms, del);
@@ -168,15 +159,13 @@ t_am		*am_new(int fd)
 	{
 		if (am_addlink(line, am) == ERR)
 		{
-			ft_strdel(&line);
 			am_del(&am);
-			get_next_line(-1, NULL);
+			am_gnl(-1, NULL);
 			return (NULL);
 		}
-		ft_strdel(&line);
-		if (get_next_line(fd, &line) != OK)
+		if (am_gnl(fd, &line) != OK)
 			break;
 	}
-	get_next_line(-1, NULL);
+	am_gnl(-1, NULL);
 	return (am);
 }
