@@ -1,22 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   am_clear_visited.c                                 :+:      :+:    :+:   */
+/*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/06 18:42:19 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/06 18:43:40 by blinnea          ###   ########.fr       */
+/*   Created: 2020/07/18 19:30:49 by blinnea           #+#    #+#             */
+/*   Updated: 2020/07/18 19:31:16 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libam.h"
+#ifndef LEM_IN_H
 
-void	am_clear_visited(t_am *am)
-{
-	size_t	i;
+# define LEM_IN_H
 
-	i = -1;
-	while (++i < am->size)
-		am->rooms[i]->visited = 0;
-}
+#endif

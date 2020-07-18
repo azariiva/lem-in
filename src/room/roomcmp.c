@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   algo.h                                             :+:      :+:    :+:   */
+/*   roomcmp.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/06 18:52:07 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/08 18:05:12 by blinnea          ###   ########.fr       */
+/*   Created: 2020/07/18 19:27:14 by blinnea           #+#    #+#             */
+/*   Updated: 2020/07/18 19:28:54 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ALGO_H
+#include "room.h"
 
-# define ALGO_H
-
-# include "libam.h"
-
-int	find_shortest(t_am *am);
-int	run_ants(t_am *am);
-
-#endif
+int	roomcmp(t_room *a, t_room *b)
+{
+	if (!strcmp(a->name, b->name))
+		return (0);
+	if (a->x == b->x)
+		return (0);
+	if (a->room_type != R_MID && a->room_type == b->room_type)
+		return (0);
+	return (1);
+}

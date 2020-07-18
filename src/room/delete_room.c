@@ -1,18 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   co_equal.c                                         :+:      :+:    :+:   */
+/*   delete_room.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/28 22:49:41 by blinnea           #+#    #+#             */
-/*   Updated: 2020/06/28 22:50:31 by blinnea          ###   ########.fr       */
+/*   Created: 2020/07/18 19:18:17 by blinnea           #+#    #+#             */
+/*   Updated: 2020/07/18 19:19:31 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libcoord.h"
+#include "room.h"
 
-int		co_equal(t_coord a, t_coord b)
+void		delete_room(t_room **room)
 {
-	return (a.x == b.x && a.y == b.y);
+	if (!room || !*room)
+		return ;
+	if ((*room)->name)
+		ft_strdel(&((*room)->name));
+	ft_memdel((void **)room);
 }

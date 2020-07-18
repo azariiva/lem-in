@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ro_show.c                                          :+:      :+:    :+:   */
+/*   new_room.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/30 20:01:11 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/06 18:23:16 by blinnea          ###   ########.fr       */
+/*   Created: 2020/07/18 19:14:49 by blinnea           #+#    #+#             */
+/*   Updated: 2020/07/18 19:18:05 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libroom.h"
-#include <stdio.h>
+#include "room.h"
 
-void	ro_show(t_room *room)
+t_room		*new_room(char *name, int x, int y, t_room_type room_type)
 {
-	if (!room)
-		ft_printf("(null)");
-	else
+	t_room	*new;
+
+	if (!(new = ft_memalloc(sizeof(t_room))))
+		return (NULL);
+	if (!(new->name = ft_strdup(name)))
 	{
-		ft_printf("name: %s\ncoord: %d %d\visited: %d\n\n",
-		room->name, room->coord.x, room->coord.y, room->visited);
+		delete_room(&new);
+		return (NULL);
 	}
+	new->room_type = room_type;
+	new->x = x;
+	new->y = y;
+	return (new);
 }

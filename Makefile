@@ -6,7 +6,7 @@
 #    By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/28 15:47:12 by blinnea           #+#    #+#              #
-#    Updated: 2020/07/09 15:17:41 by blinnea          ###   ########.fr        #
+#    Updated: 2020/07/18 14:54:54 by blinnea          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ LAM_H =		include/libam.h
 ALG_H =		include/algo.h
 WAY_H =		include/libway.h
 
-ALL_H = $(LFT_H) $(LRM_H) $(LCO_H) $(LAM_H) $(ALG_H) $(WAY_H)
+ALL_H =		$(LFT_H) $(LRM_H) $(LCO_H) $(LAM_H) $(ALG_H) $(WAY_H)
 
 # **************************************************************************** #
 #                                 FILENAMES                                    #
@@ -66,15 +66,15 @@ ALL_O = $(LRMOFILES) $(LCOOFILES) $(LAMOFILES) $(ALGOFILES) $(WAYOFILES) obj/mai
 all: $(NAME)
 	@echo "\n> $(GREEN)... was created$(DEFAULT)"
 
-obj/main.o: src/main.c obj $(ALL_H)
-	@$(CC) $(CF) -c $< -o $@ -I $(LFT)/include -I include
-
 $(NAME): $(ALL_O) $(LFT)
 	@$(CC) $(CF) $(ALL_O) -L$(LFT) -lft -o $@
 
 # create obj directory
 obj:
 	@mkdir -p obj
+
+obj/%.o: src/%.c obj $(ALL_H)
+	@$(CC) $(CF) -c $< -o $@ -I $(LFT)/include -I include
 
 # create $(LRMOFILES)
 obj/%.o: src/libroom/%.c obj $(LFT_H) $(LRM_H) $(LCO_H)

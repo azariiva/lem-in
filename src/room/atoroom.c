@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ro_ro_atoroom.c                                       :+:      :+:    :+:   */
+/*   atoroom.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/28 16:03:18 by blinnea           #+#    #+#             */
-/*   Updated: 2020/06/28 22:52:32 by blinnea          ###   ########.fr       */
+/*   Created: 2020/07/18 19:20:29 by blinnea           #+#    #+#             */
+/*   Updated: 2020/07/18 19:25:51 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libroom.h"
-#include <unistd.h>
+#include "room.h"
 
 static void		free_data(char ***data)
 {
@@ -44,45 +43,19 @@ static size_t	getdatasize(char **data)
 	return (ctr);
 }
 
-t_room			*ro_atoroom(char *line)
+t_room		*atoroom(char *line, t_room_type room_type)
 {
-	char		**data;
-	t_room		*room;
-	static int	rtype;
+	char	**data;
+	t_room	*room;
 
-	if (line[0] == 'L')
-		return ((t_room *)ERR);
-	else if (line[0] == '#')
-	{
-		if (line[1] == '#')
-		{
-			line = ft_strtrim(line);
-			if (!ft_strcmp(line + 2, "start"))
-			{
-				rtype = START_ROOM;
-				ft_printf("%s\n", line);
-			}
-			else if (!ft_strcmp(line + 2, "end"))
-			{
-				rtype = END_ROOM;
-				ft_printf("%s\n", line);
-			}
-			ft_strdel(&line);
-		}
-		else
-			ft_printf("%s\n", line);
-		return ((t_room *)OK);
-	}
-	if (!(data = ft_strsplit_plus(line, ft_isspace)))
-		return ((t_room *)ERR);
+	if (!line || !(data = ft_strsplit_plus(line, ft_isspace)))
+		return (NULL);
 	if (getdatasize(data) != 3 || !(isnum(data[1]) && isnum(data[2])))
 	{
 		free_data(&data);
-		return ((t_room *)ERR);
+		return (NULL);
 	}
-	ft_printf("%s %s %s\n", data[0], data[1], data[2]);
-	room = ro_new(data[0], (t_coord){ft_atoi(data[1]), ft_atoi(data[2])}, rtype);
+	room = new_room(data[0], ft_atoi(data[1]), ft_atoi(data[2]), room_type);
 	free_data(&data);
-	rtype = MIDDLE_ROOM;
-	return (room ? room : (t_room *)ERR);
+	return (room);
 }
