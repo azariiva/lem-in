@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lem_in.h                                           :+:      :+:    :+:   */
+/*   edgecmp.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/18 19:30:49 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/18 19:38:27 by blinnea          ###   ########.fr       */
+/*   Created: 2020/07/18 20:24:55 by blinnea           #+#    #+#             */
+/*   Updated: 2020/07/18 20:27:38 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEM_IN_H
+#include "edge.h"
 
-# define LEM_IN_H
-
-# include "room.h"
-
-
-
-#endif
+int		edgecmp(t_edge *a, t_edge *b)
+{
+	if (!roomcmp(a->source->room, b->source->room) &&
+	!roomcmp(a->sink->room, b->sink->room))
+		return (0);
+	return (1);
+}

@@ -6,15 +6,15 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 19:08:50 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/18 19:30:29 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/18 19:38:21 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "libft.h"
 
 #ifndef ROOM_H
 
 # define ROOM_H
+
+# include "libft.h"
 
 typedef enum	e_room_type
 {

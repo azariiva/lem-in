@@ -1,21 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lem_in.h                                           :+:      :+:    :+:   */
+/*   delete_edge.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/18 19:30:49 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/18 19:38:27 by blinnea          ###   ########.fr       */
+/*   Created: 2020/07/18 20:23:25 by blinnea           #+#    #+#             */
+/*   Updated: 2020/07/18 20:23:59 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEM_IN_H
+#include "edge.h"
 
-# define LEM_IN_H
-
-# include "room.h"
-
-
-
-#endif
+void	delete_edge(t_edge **edge)
+{
+	ft_memdel((void **)edge);
+}

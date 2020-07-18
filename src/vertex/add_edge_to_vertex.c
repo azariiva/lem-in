@@ -1,21 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lem_in.h                                           :+:      :+:    :+:   */
+/*   add_edge_to_vertex.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/18 19:30:49 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/18 19:38:27 by blinnea          ###   ########.fr       */
+/*   Created: 2020/07/18 19:55:42 by blinnea           #+#    #+#             */
+/*   Updated: 2020/07/18 20:30:56 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEM_IN_H
+#include "vertex.h"
 
-# define LEM_IN_H
+static int	check_edges(t_queue *edges, t_edge *edge)
+{
+	t_list	*ptr;
 
-# include "room.h"
+	ptr = edges->head;
+	while (ptr)
+	{
+		if (!edgecmp(*(t_edge **)ptr->content , edge))
+			return (0);
+		ptr = ptr->next;
+	}
+	return (0);
+}
+
+int			add_edge_to_vertex(t_vertex *vertex, t_edge *edge)
+{
+	t_queue	*edges;
 
 
-
-#endif
+}

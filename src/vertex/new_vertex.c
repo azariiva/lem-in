@@ -1,21 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lem_in.h                                           :+:      :+:    :+:   */
+/*   new_vertex.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/18 19:30:49 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/18 19:38:27 by blinnea          ###   ########.fr       */
+/*   Created: 2020/07/18 19:46:08 by blinnea           #+#    #+#             */
+/*   Updated: 2020/07/18 19:50:28 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEM_IN_H
+#include "vertex.h"
 
-# define LEM_IN_H
+t_vertex	*new_vertex(t_room *room)
+{
+	t_vertex	*new;
 
-# include "room.h"
-
-
-
-#endif
+	if (!(new = ft_memalloc(sizeof(t_vertex))))
+		return (NULL);
+	if (!(new->edges = ft_memalloc(sizeof(t_queue))))
+	{
+		delete_vertex(&new);
+		return (NULL);
+	}
+	new->room = room;
+	return (new);
+}

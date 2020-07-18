@@ -1,21 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lem_in.h                                           :+:      :+:    :+:   */
+/*   new_edge.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/18 19:30:49 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/18 19:38:27 by blinnea          ###   ########.fr       */
+/*   Created: 2020/07/18 20:00:16 by blinnea           #+#    #+#             */
+/*   Updated: 2020/07/18 20:22:57 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEM_IN_H
+#include "edge.h"
 
-# define LEM_IN_H
+t_edge	*new_edge(t_vertex *source, t_vertex *sink, int capacity)
+{
+	t_edge	*new;
 
-# include "room.h"
-
-
-
-#endif
+	if (!(new = ft_memalloc(sizeof(t_edge))))
+		return (NULL);
+	new->capacity = capacity;
+	new->source = source;
+	new->sink = sink;
+	new->flow = 0;
+}
