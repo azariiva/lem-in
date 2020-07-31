@@ -68,7 +68,7 @@ class	Lemin:
 			elif "L" in line and "-" in line:
 				self.antmoves.append(line)
 				self.add_ant(line)
-				str_h = line.split(" ")
+				str_h = line.replace('\n', '').split(" ")
 				tmp_list.clear()
 				for s in str_h:
 					tmp_list.append(s.split("-")[1])
@@ -81,7 +81,7 @@ class	Lemin:
 							print("Checker: Oops!: {} == {}".format(tmp_list[i], tmp_list[j]), "in line {}".format(n + 1))
 							return
 						j += 1
-					if (tmp_list[i] == self.end):
+					if tmp_list[i] == self.end:
 						num_ant += 1
 					i += 1
 			n += 1
