@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 20:45:56 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/30 18:52:05 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/31 15:35:05 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,14 @@ int			fill_lem_in(t_lem_in *lem_in, int fdin, int fdout)
 {
 	char	*line;
 
-	get_next_line(fdin, &line);
-	ft_printf_fd(fdout, "%s\n", line);
-	if (!isnum(line) || (lem_in->ants_size = ft_atoi(line)) <= 0)
+	line = NULL;
+	if (get_next_line(fdin, &line) != OK || !isnum(line) ||
+	(lem_in->ants_size = ft_atoi(line)) <= 0)
 	{
 		ft_strdel(&line);
 		return (ERR);
 	}
+	ft_printf_fd(fdout, "%s\n", line);
 	ft_strdel(&line);
 	if (!(lem_in->ants = ft_memalloc(lem_in->ants_size * sizeof(t_list *))) ||
 	!(lem_in->rooms = create_rooms(fdin, fdout, &line, &(lem_in->size))))
