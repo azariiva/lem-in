@@ -8,6 +8,11 @@ ILINK="$(dirname "$0")/test-link"
 OLINK="$(dirname "$0")/out-link"
 LLINK="$(dirname "$0")/log-link"
 
+if [ ! -f "$(dirname "$0")/lem-in" ]
+then
+	echo "lem-in binary not found"
+	exit
+fi
 if [ -z $1 ]
 then
 	echo "usage: ./script.sh [option]"
