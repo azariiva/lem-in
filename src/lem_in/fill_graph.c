@@ -6,57 +6,16 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 21:31:49 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/31 20:21:57 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/31 21:54:31 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 #include <unistd.h>
 
-static size_t		getlinksize(char **link)
-{
-	size_t	ctr;
-
-	ctr = 0;
-	while (link[ctr] != NULL)
-		++ctr;
-	return (ctr);
-}
-
-static void			free_slink(char **link)
-{
-	char	**ptr;
-
-	ptr = link;
-	while (*ptr)
-		ft_memdel((void **)ptr++);
-	ft_memdel((void **)&link);
-}
-
-static char			**atoslink(char *line)
-{
-	char	**link;
-	char	*trimmed;
-
-	if ((trimmed = ft_strtrim(line)) == NULL)
-		return (NULL);
-	if ((link = ft_strsplit(trimmed, '-')) == NULL)
-	{
-		ft_strdel(&trimmed);
-		return (NULL);
-	}
-	ft_strdel(&trimmed);
-	if (getlinksize(link) != 2 || !ft_strcmp(link[0], link[1]))
-	{
-		free_slink(link);
-		return (NULL);
-	}
-	return (link);
-}
-
 static void			helper(t_lem_in *lem_in)
 {
-	size_t 	i;
+	size_t register	i;
 
 	i = -1;
 	while (++i < lem_in->size)
@@ -68,46 +27,49 @@ static void			helper(t_lem_in *lem_in)
 	}
 }
 
+static int			exit__(char ***slink, char **line, int rcode)
+{
+	if (*line)
+		ft_strdel(line);
+	if (*slink)
+		free_slink(slink);
+	return (rcode);
+}
+
+static void			big_assign(t_lem_in *lem_in, size_t const link[2])
+{
+	lem_in->capacity[link[0] * 2 + 1][link[1] * 2] = 1;
+	lem_in->capacity[link[1] * 2 + 1][link[0] * 2] = 1;
+	lem_in->residual_network[link[0] * 2 + 1][link[1] * 2] = 1;
+	lem_in->residual_network[link[1] * 2 + 1][link[0] * 2] = 1;
+}
+
 int					fill_graph(t_lem_in *lem_in, char **line, int fdin,
 int fdout)
 {
 	char	**slink;
 	size_t	link[2];
 
+	slink = NULL;
 	helper(lem_in);
-	do
+	while (1)
 	{
 		ft_printf_fd(fdout, "%s\n", *line);
 		if ((*line)[0] == 'L')
-		{
-			ft_strdel(line);
-			return (ERR);
-		}
+			return (exit__(&slink, line, ERR));
 		if ((*line)[0] != '#')
 		{
-			if (!(slink = atoslink(*line)))
-			{
-				ft_strdel(line);
-				return (ERR);
-			}
+			if (!(slink = atoslink(*line)) ||
+			(link[0] = get_room_index(lem_in->rooms, lem_in->size, slink[0])) ==
+			(size_t)-1 || (link[1] = get_room_index(lem_in->rooms, lem_in->size,
+			slink[1])) == (size_t)-1 ||
+			lem_in->capacity[link[0] * 2 + 1][link[1] * 2])
+				return (exit__(&slink, line, ERR));
 			ft_strdel(line);
-			if ((link[0] = get_room_index(lem_in->rooms, lem_in->size,
-			slink[0])) == (size_t)-1 || (link[1] = get_room_index(lem_in->rooms,
-			lem_in->size, slink[1])) == (size_t)-1)
-			{
-				free_slink(slink);
-				return (ERR);
-			}
-			free_slink(slink);
-			if (lem_in->capacity[link[0] * 2 + 1][link[1] * 2])
-				return (ERR);
-			lem_in->capacity[link[0] * 2 + 1][link[1] * 2] = 1;
-			lem_in->capacity[link[1] * 2 + 1][link[0] * 2] = 1;
-			lem_in->residual_network[link[0] * 2 + 1][link[1] * 2] = 1;
-			lem_in->residual_network[link[1] * 2 + 1][link[0] * 2] = 1;
+			free_slink(&slink);
+			big_assign(lem_in, link);
 		}
-	} while (get_next_line(fdin, line) == OK);
-	if (line)
-		ft_strdel(line);
-	return (OK);
+		if (get_next_line(fdin, line) != OK)
+			return (exit__(&slink, line, OK));
+	}
 }
