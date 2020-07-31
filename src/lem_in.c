@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:34:40 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/31 15:45:38 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/31 21:11:42 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int				main(int ac, char **av)
 	char		c;
 
 	fdin = STDIN_FILENO;
-	fdlog = STDOUT_FILENO;
+	fdlog = -1;
 	fdout = STDOUT_FILENO;
 	ft_bzero(&lem_in, sizeof(t_lem_in));
 	while ((c = ft_getopt((t_acav){.argc = ac, .argv = av}, opstring)) != -1)
@@ -60,23 +60,20 @@ int				main(int ac, char **av)
 			exit(0);
 		}
 	}
-	measure_time(fdlog, "#fill_lem_in");
+	(fdlog > 0 ? measure_time(fdlog, "#fill_lem_in") : 0);
 	if (fill_lem_in(&lem_in, fdin, fdout) == ERR)
 		err(&lem_in);
-	measure_time(fdlog, "#edmonds_karp");
+	(fdlog > 0 ? measure_time(fdlog, "#edmonds_karp") : 0);
 	if (fdin != STDIN_FILENO)
 		close(fdin);
 	if (edmonds_karp(&lem_in) == ERR)
 		err(&lem_in);
-	measure_time(fdlog, "#send_ants");
-	ft_printf_fd(fdout, "\n");
+	(fdlog > 0 ? measure_time(fdlog, "#send_ants") : 0);
 	if (send_ants(&lem_in, fdout) == ERR)
 		err(&lem_in);
-	measure_time(fdlog, NULL);
-	if (fdlog != STDOUT_FILENO)
-		close(fdlog);
-	if (fdout != STDOUT_FILENO)
-		close(fdout);
+	(fdlog > 0 ? measure_time(fdlog, NULL) : 0);
+	(fdlog > 0 ? close(fdlog) : 0);
+	(fdout != STDOUT_FILENO ? close(fdout) : 0);
 	delete_lem_in_content(&lem_in);
 	return (0);
 }

@@ -6,11 +6,12 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 20:10:06 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/31 15:59:33 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/31 21:11:25 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+#include <unistd.h>
 
 static int	helper(t_lem_in *lem_in, size_t cur, t_list **way)
 {
@@ -108,6 +109,7 @@ int			send_ants(t_lem_in *lem_in, int fdout)
 			}
 			k++;
 		}
+	ft_printf_fd(fdout, "\n");
 	i = 0;
 	while (i < (size_t)lem_in->ants_size)
 	{

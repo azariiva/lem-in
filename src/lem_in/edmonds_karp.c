@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 19:33:34 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/31 15:57:38 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/31 20:16:05 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,39 +21,48 @@ static void	reverse_state(t_lem_in *lem_in)
 	lem_in->maxsteps = lem_in->old_maxsteps;
 	while (++i < lem_in->size)
 	{
-		lem_in->rooms[i].weight = lem_in->rooms[i].old_weight;
-		lem_in->rooms[i].load = lem_in->rooms[i].old_load;
+		lem_in->rooms[i].weight = (lem_in->rooms[i].old_weight ?
+		lem_in->rooms[i].old_weight : 0);
+		lem_in->rooms[i].load = (lem_in->rooms[i].old_load ?
+		lem_in->rooms[i].old_load : 0);
 	}
 	flowcpy(lem_in->flow, lem_in->old_flow, lem_in->size);
 }
 
 static void	save_state(t_lem_in *lem_in)
 {
-	size_t 	i;
+	size_t register	i;
 
-	i = 0;
-	lem_in->old_maxsteps = lem_in->maxsteps;
-	while (i < lem_in->size)
+	i = -1;
+	while (++i < lem_in->size)
 	{
-		if (lem_in->rooms[i].weight)
-		{
-			lem_in->rooms[i].old_weight = lem_in->rooms[i].weight;
-			lem_in->rooms[i].weight = 0;
-		}
-		if (lem_in->rooms[i].load)
-		{
-			lem_in->rooms[i].old_load = lem_in->rooms[i].load;
-			lem_in->rooms[i].load = 0;
-		}
-		i++;
+		lem_in->rooms[i].old_weight = (lem_in->rooms[i].weight ?
+		lem_in->rooms[i].weight : 0);
+		lem_in->rooms[i].weight = 0;
+		lem_in->rooms[i].old_load = (lem_in->rooms[i].load ?
+		lem_in->rooms[i].load : 0);
+		lem_in->rooms[i].load = 0;
 	}
+	lem_in->old_maxsteps = lem_in->maxsteps;
 	flowcpy(lem_in->old_flow, lem_in->flow, lem_in->size);
 }
+
+// static void	reset_lw(t_lem_in *lem_in)
+// {
+// 	size_t register	i;
+
+// 	i = -1;
+// 	while (++i < lem_in->size)
+// 	{
+// 		lem_in->rooms[i].weight = 0;
+// 		lem_in->rooms[i].load = 0;
+// 	}
+// }
 
 static void	calc_load(t_lem_in *lem_in)
 {
 	size_t			ants_left;
-	size_t 	i;
+	size_t register	i;
 	t_room			*room;
 
 	lem_in->maxsteps = 0;
@@ -66,7 +75,7 @@ static void	calc_load(t_lem_in *lem_in)
 		{
 			if (lem_in->rooms[i].weight && lem_in->flow[1][i * 2] == 1 && !room)
 				room = lem_in->rooms + i;
-			if (room && lem_in->flow[1][i * 2] == 1 && lem_in->rooms[i].weight + lem_in->rooms[i].load < room->weight + room->load)
+			else if (room && lem_in->flow[1][i * 2] == 1 && lem_in->rooms[i].weight + lem_in->rooms[i].load < room->weight + room->load)
 				room = lem_in->rooms + i;
 		}
 		if ((size_t)(++room->load + room->weight) > lem_in->maxsteps)
@@ -106,6 +115,8 @@ static void	calc_weight(t_lem_in *lem_in)
 			helper(lem_in, i);
 }
 
+#include <unistd.h>
+
 int			edmonds_karp(t_lem_in *lem_in)
 {
 	char	pv;
@@ -123,7 +134,7 @@ int			edmonds_karp(t_lem_in *lem_in)
 		calc_weight(lem_in);
 		calc_load(lem_in);
 		if (lem_in->maxsteps >= lem_in->old_maxsteps)
-			break ;
+			break;
 		save_state(lem_in);
 	}
 	reverse_state(lem_in);
