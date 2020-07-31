@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 19:33:34 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/31 12:02:22 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/31 15:57:38 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static void	calc_load(t_lem_in *lem_in)
 			if (room && lem_in->flow[1][i * 2] == 1 && lem_in->rooms[i].weight + lem_in->rooms[i].load < room->weight + room->load)
 				room = lem_in->rooms + i;
 		}
-		if (++room->load + room->weight > lem_in->maxsteps)
+		if ((size_t)(++room->load + room->weight) > lem_in->maxsteps)
 			lem_in->maxsteps = room->load + room->weight;
 		ants_left--;
 	}

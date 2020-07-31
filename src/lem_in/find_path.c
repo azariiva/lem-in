@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 12:34:07 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/30 18:53:23 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/31 15:57:49 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ int			find_path(t_lem_in *lem_in, char pv)
 {
 	t_queue			*q;
 	t_list			*l;
-	size_t 	i;
-	size_t 	cur;
 
 	ft_bzero(lem_in->visited, lem_in->size * 2 * sizeof(bool));
 	if (!(q = ft_memalloc(sizeof(t_queue))))

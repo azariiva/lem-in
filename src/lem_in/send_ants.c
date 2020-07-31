@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 20:10:06 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/31 11:52:56 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/31 15:59:33 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,22 +53,9 @@ static void	delete_ways(t_list ***ways, size_t size)
 	ft_memdel((void **)ways);
 }
 
-static void show_way(t_lem_in *lem_in, t_list *way)
-{
-	t_list	*ptr;
-
-	ptr = way;
-	if (!ptr)
-		return ;
-	ft_printf("%s--", lem_in->rooms[ptr->content_size].name);
-	while ((ptr = ptr->next))
-		ft_printf("%s--", lem_in->rooms[ptr->content_size].name);
-	ft_printf("\n");
-}
-
 static bool	step(t_lem_in *lem_in, int fdout)
 {
-	size_t 	i;
+	int register	i;
 	bool			f;
 	char			*name;
 
@@ -102,10 +89,10 @@ static bool	step(t_lem_in *lem_in, int fdout)
 
 int			send_ants(t_lem_in *lem_in, int fdout)
 {
-	t_list	**ways;
-	size_t 	i;
-	size_t 	k;
-	size_t 	j;
+	t_list			**ways;
+	size_t register	i;
+	size_t register	k;
+	size_t register	j;
 
 	if (!(ways = ft_memalloc(sizeof(t_list *) * (lem_in->size - 1))))
 		return (ERR);
@@ -122,10 +109,10 @@ int			send_ants(t_lem_in *lem_in, int fdout)
 			k++;
 		}
 	i = 0;
-	while (i < lem_in->ants_size)
+	while (i < (size_t)lem_in->ants_size)
 	{
 		j = -1;
-		while (++j < k && i < lem_in->ants_size)
+		while (++j < k && i < (size_t)lem_in->ants_size)
 			if (!lem_in->ants[i] && lem_in->rooms[ways[j]->content_size].load)
 			{
 				lem_in->rooms[ways[j]->content_size].load--;

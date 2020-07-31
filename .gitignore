@@ -3,5 +3,7 @@
 *.out
 *.dsym
 logs.txt
-visualizer.py
-generator
+test-link
+out-link
+lem-in
+obj
