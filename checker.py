@@ -78,7 +78,7 @@ class	Lemin:
 					while (j < len(tmp_list)):
 						if (tmp_list[i] == tmp_list[j] and tmp_list[i] != self.end and tmp_list[j] != self.end):
 							print("LINE: ", tmp_list)
-							print("Checker: Oops!: {}=={}".format(tmp_list[i], tmp_list[j]), "in line {}".format(n + 1))
+							print("Checker: Oops!: {} == {}".format(tmp_list[i], tmp_list[j]), "in line {}".format(n + 1))
 							return
 						j += 1
 					if (tmp_list[i] == self.end):
