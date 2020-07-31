@@ -23,11 +23,9 @@ class	Lemin:
 
 	def add_room(self, line, start_end):
 		self.nodes.append(line)
-		n = line.split(' ')
 
 	def add_edge(self, line):
 		self.connections.append(line)
-		n = line.split('-')
 
 	def add_ant(self, line):
 		for move in line.split(" "):
@@ -40,11 +38,10 @@ class	Lemin:
 	def read_input(self, argfile):
 		start_end = 0
 		lines = [line.rstrip("\n") for line in argfile]
-		num_lines = len(lines)
+
 		n = 0
-
 		tmp_list = []
-
+		num_ant = 0
 		for line in lines:
 			if line == "":
 				pass
@@ -65,6 +62,7 @@ class	Lemin:
 				self.antmoves.append(line)
 				self.add_ant(line)
 				str_h = line.split(" ")
+				tmp_list.clear()
 				for s in str_h:
 					tmp_list.append(s.split("-")[1])
 				i = 0
@@ -72,13 +70,18 @@ class	Lemin:
 					j = i + 1
 					while (j < len(tmp_list)):
 						if (tmp_list[i] == tmp_list[j] and tmp_list[i] != self.end and tmp_list[j] != self.end):
-							print(tmp_list)
-							print("Checker: Oops!: {}=={}".format(tmp_list[i], tmp_list[j]))
+							print("LINE: ", tmp_list)
+							print("Checker: Oops!: {}=={}".format(tmp_list[i], tmp_list[j]), "in line {}".format(n + 1))
 							return
 						j += 1
+					if (tmp_list[i] == self.end):
+						num_ant += 1
 					i += 1
 			n += 1
-		print("Checker: OK")
+		if (self.ants == num_ant):
+			print("Checker: OK")
+		else:
+			print("Checker: Oops!: Num of ants: {}, but you're result: {}".format(self.num_ants, num_ant))
 
 loops = Lemin()
 

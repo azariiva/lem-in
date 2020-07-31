@@ -22,6 +22,6 @@ else
 		OUR=$(expr $b - $a - 1)
 		PERF=$(sed '2q;d' $IPATH | tr -dc '0-9')
 		echo "Result: $OUR/$PERF"
-		python3 checker.py < $IPATH
+		python3 checker.py < $OPATH
 	fi
 fi
