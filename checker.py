@@ -22,7 +22,12 @@ class	Lemin:
 		self.nodes_colors = []
 
 	def add_room(self, line, start_end):
-		self.nodes.append(line)
+		if int(start_end) == 1:
+			self.start = line.split(' ')[0]
+		elif int(start_end) == -1:
+			self.end = line.split(' ')[0]
+		else:
+			self.nodes.append(line)
 
 	def add_edge(self, line):
 		self.connections.append(line)
@@ -56,6 +61,8 @@ class	Lemin:
 					start_end = 0
 			elif line.count(" ") == 2:
 				self.add_room(line, start_end)
+				if start_end:
+					start_end = 0
 			elif "L" not in line and "-" in line:
 				self.add_edge(line)
 			elif "L" in line and "-" in line:
@@ -78,7 +85,7 @@ class	Lemin:
 						num_ant += 1
 					i += 1
 			n += 1
-		if (self.ants == num_ant):
+		if (self.num_ants == num_ant):
 			print("Checker: OK")
 		else:
 			print("Checker: Oops!: Num of ants: {}, but you're result: {}".format(self.num_ants, num_ant))
