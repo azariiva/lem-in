@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:34:40 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/30 18:41:18 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/31 12:44:52 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,16 +61,18 @@ int				main(int ac, char **av)
 			exit(0);
 		}
 	}
-	measure_time(fdlog, "fill_lem_in");
+	measure_time(fdlog, "#fill_lem_in");
 	if (fill_lem_in(&lem_in, fdin, fdout) == ERR)
 		err(&lem_in);
-	measure_time(fdlog, "edmonds_karp");
+	measure_time(fdlog, "#edmonds_karp");
 	if (fdin != STDIN_FILENO)
 		close(fdin);
 	if (edmonds_karp(&lem_in) == ERR)
 		err(&lem_in);
-	measure_time(fdlog, "send_ants");
-	send_ants(&lem_in, fdout);
+	measure_time(fdlog, "#send_ants");
+	ft_printf_fd(fdout, "\n");
+	if (send_ants(&lem_in, fdout) == ERR)
+		err(&lem_in);
 	measure_time(fdlog, NULL);
 	if (fdlog != STDOUT_FILENO)
 		close(fdlog);

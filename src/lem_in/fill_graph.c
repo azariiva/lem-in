@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 21:31:49 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/30 18:52:05 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/31 11:32:09 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,9 @@ static void			helper(t_lem_in *lem_in)
 	while (++i < lem_in->size)
 	{
 		lem_in->residual_network[i * 2][i * 2 + 1] = 1;
-		lem_in->residual_network[i * 2 + 1][i * 2] = -1;
-		lem_in->capacity[i * 2 + 1][i * 2] = -1;
+		lem_in->residual_network[i * 2 + 1][i * 2] = 0;
+		lem_in->capacity[i * 2 + 1][i * 2] = 0;
+		lem_in->capacity[i * 2][i * 2 + 1] = 1;
 	}
 }
 

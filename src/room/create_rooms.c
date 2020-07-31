@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 20:48:19 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/30 18:37:28 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/31 11:34:21 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ static inline t_room	*exit__(char **line, t_room **rooms)
 	return (NULL);
 }
 
-t_room					*create_rooms(int fdin, int fdout, char **line, size_t *size)
+t_room					*create_rooms(int fdin, int fdout, char **line,
+size_t *size)
 {
 	t_room			*rooms;
 	t_room			room;

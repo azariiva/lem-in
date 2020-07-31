@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 17:30:38 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/30 18:52:05 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/31 11:34:02 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ static void	swap(t_room *a, t_room *b)
 
 void		sort_rooms(t_room *rooms, long long low, long long high)
 {
-	long long 	i;
-	long long 	j;
-	long long 	p;
+	long long	i;
+	long long	j;
+	long long	p;
 
 	i = low;
 	j = high;

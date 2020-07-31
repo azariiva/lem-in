@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 19:33:34 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/30 18:52:05 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/31 12:02:22 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,11 +123,9 @@ int			edmonds_karp(t_lem_in *lem_in)
 		calc_weight(lem_in);
 		calc_load(lem_in);
 		if (lem_in->maxsteps >= lem_in->old_maxsteps)
-		{
-			reverse_state(lem_in);
-			break;
-		}
+			break ;
 		save_state(lem_in);
 	}
+	reverse_state(lem_in);
 	return (OK);
 }

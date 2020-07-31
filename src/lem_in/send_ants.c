@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 20:10:06 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/30 18:52:05 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/31 11:52:56 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,8 +126,11 @@ int			send_ants(t_lem_in *lem_in, int fdout)
 	{
 		j = -1;
 		while (++j < k && i < lem_in->ants_size)
-			if (!lem_in->ants[i])
+			if (!lem_in->ants[i] && lem_in->rooms[ways[j]->content_size].load)
+			{
+				lem_in->rooms[ways[j]->content_size].load--;
 				lem_in->ants[i++] = ways[j];
+			}
 		if (!step(lem_in, fdout))
 		{
 			delete_ways(&ways, lem_in->size - 1);

@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 20:57:09 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/30 18:52:05 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/31 11:35:03 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	increase_size(t_room **rooms, size_t *size)
 {
-	size_t 	new_size;
+	size_t	new_size;
 	t_room	*new_rooms;
 
 	new_size = (*size) * 2;
@@ -29,7 +29,7 @@ static int	increase_size(t_room **rooms, size_t *size)
 
 int			check_rooms(t_room *rooms, t_room *room, size_t place)
 {
-	size_t 	i;
+	size_t	i;
 
 	i = -1;
 	while (++i < place)
