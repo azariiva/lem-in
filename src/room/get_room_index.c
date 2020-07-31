@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_room_index.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lhitmonc <lhitmonc@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 20:58:50 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/22 21:11:18 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/31 22:49:46 by lhitmonc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ const char *name)
 
 size_t			get_room_index(t_room *rooms, size_t size, const char *name)
 {
-	if (!ft_strcmp(rooms[0].name, name))
+	if (rooms[0].name && !ft_strcmp(rooms[0].name, name))
 		return (0);
-	if (!ft_strcmp(rooms[1].name, name))
+	if (rooms[1].name && !ft_strcmp(rooms[1].name, name))
 		return (1);
 	return (binary_search(rooms, 2, size - 1, name));
 }

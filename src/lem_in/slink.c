@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   slink.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lhitmonc <lhitmonc@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/31 21:30:25 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/31 21:45:41 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/31 23:09:34 by lhitmonc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static size_t		getlinksize(char **link)
 	size_t	ctr;
 
 	ctr = 0;
-	while (link[ctr] != NULL)
+	while (link[ctr] != NULL && link[ctr][0])
 		++ctr;
 	return (ctr);
 }

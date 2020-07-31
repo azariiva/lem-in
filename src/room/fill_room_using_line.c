@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_room_using_line.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lhitmonc <lhitmonc@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/30 15:04:40 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/31 11:34:30 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/31 23:00:25 by lhitmonc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,16 @@ static void		free_data(char ***data)
 
 static int		isnum(char *str)
 {
-	while (*str)
+	size_t	i;
+
+	i = 0;
+	if (str[i] == '-')
+		i++;
+	while (str[i])
 	{
-		if (!ft_isdigit(*str))
+		if (!ft_isdigit(str[i]))
 			return (0);
-		++str;
+		++i;
 	}
 	return (1);
 }
