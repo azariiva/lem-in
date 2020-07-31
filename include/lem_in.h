@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 20:39:37 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/31 15:45:17 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/31 21:22:22 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,7 @@ void			flowcpy(char **dst, char **src, size_t size);
 int				edmonds_karp(t_lem_in *lem_in);
 int				send_ants(t_lem_in *lem_in, int fdout);
 void			measure_time(int fd, const char* name);
+void			calc_load(t_lem_in *lem_in);
+void			calc_weight(t_lem_in *lem_in);
 
 #endif

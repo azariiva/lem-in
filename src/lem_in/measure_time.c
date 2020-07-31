@@ -6,14 +6,14 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 17:58:38 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/30 18:25:24 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/31 21:22:50 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <sys/time.h>
 
-void	measure_time(int fd, const char* name)
+void	measure_time(int fd, const char *name)
 {
 	static struct timeval	start;
 	static struct timeval	stop;

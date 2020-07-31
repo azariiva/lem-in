@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 12:34:07 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/31 15:57:49 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/31 21:23:08 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ static int	exit__(t_queue **q, int rc)
 static int	loop__(t_lem_in *lem_in, t_queue *q, char pv)
 {
 	t_list			*l;
-	size_t 	i;
-	size_t 	cur;
+	size_t register	i;
+	size_t register	cur;
 
 	l = ft_quepop(q);
 	cur = l->content_size;
