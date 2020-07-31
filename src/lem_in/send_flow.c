@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 13:38:18 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/30 18:52:05 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/31 15:40:52 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	send_flow(t_lem_in *lem_in, char pv)
 {
-	size_t 	i;
-	size_t 	j;
+	size_t register	i;
+	size_t register	j;
 
 	i = 2;
 	while (i != 1)
