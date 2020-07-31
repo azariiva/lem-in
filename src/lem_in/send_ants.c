@@ -3,55 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   send_ants.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lhitmonc <lhitmonc@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 20:10:06 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/31 21:11:25 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/31 22:34:07 by lhitmonc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 #include <unistd.h>
 
-static int	helper(t_lem_in *lem_in, size_t cur, t_list **way)
+static void	helper_step(t_lem_in *lem_in, char **name, int register i)
 {
-	size_t 	i;
-	t_list			*lst;
-
-	if (!(*way = ft_lstnew_ic(cur)))
-		return (ERR);
-	while (!lem_in->flow[1][cur * 2])
+	if (lem_in->ants[i] == (t_list *)-2)
 	{
-		i = 0;
-		while (++i < lem_in->size)
-		{
-			if (lem_in->flow[i * 2 + 1][cur * 2] == 1)
-			{
-				if (!(lst = ft_lstnew_ic(i)))
-					return (ERR);
-				ft_lstadd(way, lst);
-				cur = i;
-				break ;
-			}
-		}
+		*name = lem_in->rooms[1].name;
+		lem_in->ants[i] = (t_list *)-1;
 	}
-	return (OK);
-}
-
-static void	delete_ways(t_list ***ways, size_t size)
-{
-	size_t 	i;
-
-	if (!ways || !*ways)
-		return;
-	i = -1;
-	while (++i < size)
+	else
 	{
-		if (!(*ways)[i])
-			break ;
-		ft_lstdel_ic((*ways) + i);
+		*name = lem_in->rooms[lem_in->ants[i]->content_size].name;
+		lem_in->ants[i] = (lem_in->ants[i]->next ?
+		lem_in->ants[i]->next : (t_list *)-2);
 	}
-	ft_memdel((void **)ways);
 }
 
 static bool	step(t_lem_in *lem_in, int fdout)
@@ -67,17 +41,7 @@ static bool	step(t_lem_in *lem_in, int fdout)
 	{
 		if (lem_in->ants[i] && lem_in->ants[i] != (t_list *)-1)
 		{
-			if (lem_in->ants[i] == (t_list *)-2)
-			{
-				name = lem_in->rooms[1].name;
-				lem_in->ants[i] = (t_list *)-1;
-			}
-			else
-			{
-				name = lem_in->rooms[lem_in->ants[i]->content_size].name;
-				lem_in->ants[i] = (lem_in->ants[i]->next ?
-				lem_in->ants[i]->next : (t_list *)-2);
-			}
+			helper_step(lem_in, &name, i);
 			ft_printf_fd(fdout, (f ? " L%zu-%s" : "L%zu-%s"), i, name);
 			if (!f && name)
 				f = true;
@@ -88,38 +52,31 @@ static bool	step(t_lem_in *lem_in, int fdout)
 	return (f);
 }
 
+void		helper_send_ants(t_lem_in *lem_in, size_t *i,
+								size_t *j, t_list ***ways)
+{
+	if (!lem_in->ants[*i] && lem_in->rooms[(*ways)[*j]->content_size].load)
+	{
+		lem_in->rooms[(*ways)[*j]->content_size].load--;
+		lem_in->ants[(*i)++] = (*ways)[*j];
+	}
+}
+
 int			send_ants(t_lem_in *lem_in, int fdout)
 {
 	t_list			**ways;
-	size_t register	i;
-	size_t register	k;
-	size_t register	j;
+	size_t			i;
+	size_t			j;
 
-	if (!(ways = ft_memalloc(sizeof(t_list *) * (lem_in->size - 1))))
+	if (!(ways = new_ways(lem_in)))
 		return (ERR);
-	k = 0;
-	i = -1;
-	while (++i < lem_in->size)
-		if (lem_in->flow[i * 2 + 1][2])
-		{
-			if (helper(lem_in, i, ways + k) == ERR)
-			{
-				delete_ways(&ways, lem_in->size - 1);
-				return (ERR);
-			}
-			k++;
-		}
 	ft_printf_fd(fdout, "\n");
 	i = 0;
 	while (i < (size_t)lem_in->ants_size)
 	{
 		j = -1;
-		while (++j < k && i < (size_t)lem_in->ants_size)
-			if (!lem_in->ants[i] && lem_in->rooms[ways[j]->content_size].load)
-			{
-				lem_in->rooms[ways[j]->content_size].load--;
-				lem_in->ants[i++] = ways[j];
-			}
+		while (ways[++j] && i < (size_t)lem_in->ants_size)
+			helper_send_ants(lem_in, &i, &j, &ways);
 		if (!step(lem_in, fdout))
 		{
 			delete_ways(&ways, lem_in->size - 1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lhitmonc <lhitmonc@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 20:39:37 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/31 21:44:17 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/31 22:34:57 by lhitmonc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,12 @@ int				find_path(t_lem_in *lem_in, char pv);
 void			flowcpy(char **dst, char **src, size_t size);
 int				edmonds_karp(t_lem_in *lem_in);
 int				send_ants(t_lem_in *lem_in, int fdout);
-void			measure_time(int fd, const char* name);
+void			measure_time(int fd, const char *name);
 void			calc_load(t_lem_in *lem_in);
 void			calc_weight(t_lem_in *lem_in);
 void			free_slink(char ***link);
 char			**atoslink(char *line);
+void			delete_ways(t_list ***ways, size_t size);
+t_list			**new_ways(t_lem_in *lem_in);
 
 #endif
