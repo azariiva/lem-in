@@ -8,7 +8,7 @@ ILINK="$(dirname "$0")/test-link"
 OLINK="$(dirname "$0")/out-link"
 LLINK="$(dirname "$0")/log-link"
 
-if [ ! -f "$(dirname "$0")/lem-in" ]
+if [ ! -f "$(dirname "$0")/../lem-in" ]
 then
 	echo "lem-in binary not found"
 	exit
@@ -21,7 +21,7 @@ else
 	if [ -s $IPATH ]
 	then
 		rm -f $ILINK $OLINK $LLINK
-		./lem-in -i $IPATH -o $OPATH -l $LPATH
+		./../lem-in -i $IPATH -o $OPATH -l $LPATH
 		ln -s $IPATH $ILINK
 		ln -s $OPATH $OLINK
 		ln -s $LPATH $LLINK

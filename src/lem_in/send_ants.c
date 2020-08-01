@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   send_ants.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhitmonc <lhitmonc@42.fr>                  +#+  +:+       +#+        */
+/*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 20:10:06 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/31 22:34:07 by lhitmonc         ###   ########.fr       */
+/*   Updated: 2020/08/01 12:39:00 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static bool	step(t_lem_in *lem_in, int fdout)
 		if (lem_in->ants[i] && lem_in->ants[i] != (t_list *)-1)
 		{
 			helper_step(lem_in, &name, i);
-			ft_printf_fd(fdout, (f ? " L%zu-%s" : "L%zu-%s"), i, name);
+			ft_printf_fd(fdout, (f ? " L%zu-%s" : "L%zu-%s"), i + 1, name);
 			if (!f && name)
 				f = true;
 		}

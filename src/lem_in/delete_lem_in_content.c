@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 21:37:12 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/23 19:30:04 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/08/01 11:14:15 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ void	delete_lem_in_content(t_lem_in *lem_in)
 		ft_memdel((void **)&(lem_in->flow));
 	if (lem_in->path)
 		ft_memdel((void **)&(lem_in->path));
-	if (lem_in->old_flow)
-		ft_memdel((void **)&(lem_in->old_flow));
 	if (lem_in->residual_network)
 		ft_memdel((void **)&(lem_in->residual_network));
 	if (lem_in->capacity)

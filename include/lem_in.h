@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhitmonc <lhitmonc@42.fr>                  +#+  +:+       +#+        */
+/*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 20:39:37 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/31 22:34:57 by lhitmonc         ###   ########.fr       */
+/*   Updated: 2020/08/01 11:35:13 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ typedef struct	s_lem_in
 
 	size_t	size;
 	char	**flow;
-	char	**old_flow;
 	char	**capacity;
 	char	**path;
 	char	**residual_network;

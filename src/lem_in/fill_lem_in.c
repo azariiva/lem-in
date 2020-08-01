@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_lem_in.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhitmonc <lhitmonc@42.fr>                  +#+  +:+       +#+        */
+/*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 20:45:56 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/31 23:10:41 by lhitmonc         ###   ########.fr       */
+/*   Updated: 2020/08/01 11:14:17 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ int			fill_lem_in(t_lem_in *lem_in, int fdin, int fdout)
 	sort_rooms(lem_in->rooms, 2, lem_in->size - 1);
 	if (!line || !(lem_in->flow = init_arr(lem_in->size)) ||
 	!(lem_in->path = init_arr(lem_in->size)) ||
-	!(lem_in->old_flow = init_arr(lem_in->size)) ||
 	!(lem_in->residual_network = init_arr(lem_in->size)) ||
 	!(lem_in->capacity = init_arr(lem_in->size)) ||
 	fill_graph(lem_in, &line, fdin, fdout) == ERR)
